@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="css/indexstyle.css">
+    <link rel="stylesheet" href="/css/indexstyle.css" type="text/css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ml-auto" align="right">
                 <li class="nav-item active">
-                  <a class="nav-link" href="/home">Home </a>
+                <a class="nav-link" href="{{route('home.index')}}">Home </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#services">Donate</a>
@@ -43,7 +43,7 @@
                 <% } %>  -->
                   
                   <li class="nav-item">
-                    <a class="nav-link " href="/login">Login</a>
+                  <a class="nav-link " href="{{route('login.index')}}">Login</a>
                   </li>
               </ul>
             </div>

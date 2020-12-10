@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class logoutController extends Controller
 {
-    //
+    public function index()
+    {
+        return redirect()->route('login.index');
+    }
 }

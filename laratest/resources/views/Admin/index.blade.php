@@ -1,7 +1,12 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.layout')
+@section('title','Dashboard')
+@section('content')
+
+@extends('layouts.admin_navbar')
+@extends('layouts.admin_sidebar')
+
 <div class="col-md-8 donor">
-    <a href="/admin/generate" class="btn btn-success">Generate Report</a>
+    <a href="{{route('admin.generateReport')}}" class="btn btn-success">Generate Report</a>
 </div>
         <div class="center col-md-8 box">
             <h1 class="text-white bg-dark text-center">
@@ -13,7 +18,7 @@
 
                         <td class="tdattribute">Total Valid Campaign </td>
                         <td>:</td>
-                        <td><%=valid%></td>
+                        <td>1</td>
 
                     </tr>
 
@@ -21,45 +26,45 @@
 
                         <td class="tdattribute">Total Invalid Campaign </td>
                         <td>:</td>
-                        <td><%= invalid%> </td>
+                        <td>2 </td>
 
                     </tr>
 
                     <tr>
                         <td class="tdattribute">Total Blocked Campaign </td>
                         <td>:</td>
-                        <td><%=  block%> </td>
+                        <td>3</td>
 
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Complete Campaign</td>
                         <td>:</td>
-                        <td><%=  complete%> </td>
+                        <td>4</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Released Campaign</td>
                         <td>:</td>
-                        <td><%=  released%> </td>
+                        <td>5</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Admin</td>
                         <td>:</td>
-                        <td><%=admin%> </td>
+                        <td>6</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Personal User</td>
                         <td>:</td>
-                        <td><%= personal%> </td>
+                        <td>7 </td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Organizational User</td>
                         <td>:</td>
-                        <td><%= organization%> </td>
+                        <td>8</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Volunteer</td>
                         <td>:</td>
-                        <td><%=  volunteer%> </td>
+                        <td>9</td>
                     </tr>
                 </tbody>
             </table>
@@ -69,3 +74,5 @@
 
 </div>
 </div>
+
+@endsection

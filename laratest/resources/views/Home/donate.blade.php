@@ -87,12 +87,5 @@
 
 </div>
 </div>
-<script type="text/javascript">
-    $('.clockpicker').clockpicker({
-        placement: 'top',
-        align: 'left',
-        donetext: 'Done'
-    });
-</script>
 
 @endsection

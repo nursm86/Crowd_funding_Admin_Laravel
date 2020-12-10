@@ -73,8 +73,8 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <a href="/home" class="btn btn-warning">Back</a>
-                <a hre = "/home/delete" class="btn btn-danger" >Delete</a>
+                <a href="{{route('home.index')}}" class="btn btn-warning">Back</a>
+            <a href = "{{route('home.delete',1)}}" class="btn btn-danger" >Delete</a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editmodal"><i class="fa fa-pencil-square-o"></i>Edit</button>
             </div>
 
@@ -121,12 +121,5 @@
 
 </div>
 </div>
-<script type="text/javascript">
-    $('.clockpicker').clockpicker({
-        placement: 'top',
-        align: 'left',
-        donetext: 'Done'
-    });
-</script>
 
 @endsection
