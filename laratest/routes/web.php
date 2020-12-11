@@ -35,6 +35,10 @@ Route::get('/admin',[adminController::class,'index'])->name('admin.index');
 Route::get('/admin/profile',[adminController::class,'profile'])->name('admin.profile');
 Route::get('/admin/adminlist',[adminController::class,'adminlist'])->name('admin.adminlist');
 Route::get('/admin/personaluserlist',[adminController::class,'personaluserlist'])->name('admin.personaluserlist');
+Route::get('/admin/blockuser/{id}/{type}',[adminController::class,'blockuser'])->name('admin.blockuser');
+Route::get('/admin/unblockuser/{id}/{type}',[adminController::class,'unblockuser'])->name('admin.unblockuser');
+
+Route::get('/admin/personalUseredit/{id}',[adminController::class,'personalUseredit'])->name('admin.personalUseredit');
 Route::get('/admin/organizationalList',[adminController::class,'organizationalList'])->name('admin.organizationalList');
 Route::get('/admin/volunteerlist',[adminController::class,'volunteerlist'])->name('admin.volunteerlist');
 Route::get('/admin/create',[adminController::class,'create'])->name('admin.create');

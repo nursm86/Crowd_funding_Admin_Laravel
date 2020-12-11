@@ -1,44 +1,51 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.layout')
+@section('title','Profile')
+@section('content')
+
+@extends('layouts.admin_sidebar')
+@extends('layouts.admin_navbar')
+
 <div class="d-flex justify-content-center align-items-center container ">
     <div class="col-md-8 box">
                 <h1 class="text-white bg-dark text-center">
                     Person's Information
                 </h1>
                 
-                <form action="" method="post">
+                <form action="" method="post" class="center">
                     <div class="form-group">
-                        <label>User Name: <%= username %> </label>
+                        <label>User Name: {{$username}}</label>
                     </div>
                     <div class="form-group">
-                        <label>Name: <%= name %> </label>
+                        <label>Name: {{$name}}</label>
                     </div>
                     <div class="form-group">
-                        <label>Email: <%= email %> </label>
+                        <label>Email: {{$email}}</label>
                     </div>
                     <div class="form-group">
-                        <label>Phone: <%= phone %> </label>
+                        <label>Phone: {{$phone}}</label>
                     </div>
                     <div class="form-group">
-                        <label>Address: <%= address %> </label>
+                        <label>Address: {{$address}}</label>
                     </div>
                     <div class="form-group">
                         <label>Status: 
-                            <% if(status == 1){%>
-                                  valid
-                            <%} else{%>
-                                    Blocked
-                            <%}%>
+                            @if($status == 1)
+                                valid
+                            @else
+                                Blocked
+                            @endif
                         </label>
                     </div>
                     <div class="form-group">
-                        <a href="/admin/personalUserList" class="btn btn-warning">Cancel</a>
-                        <% if(status == 1){%>
-                            <a href="/admin/blockuser/<%=id%>/<%= type %> " class="btn btn-danger">Block User</a>
-                      <%} else{%>
-                            <a href="/admin/unblockuser/<%=id%>/ <%= type %> " class="btn btn-success">UnBlock User</a>
-                      <%}%>
+                        <a href="{{route('admin.personaluserlist')}}" class="btn btn-warning">Cancel</a>
+                        @if($status == 1)
+                            <a href="{{route('admin.blockuser',[$id,$type])}}" class="btn btn-danger">Block User</a>
+                        @else
+                            <a href="{{route('admin.unblockuser',[$id,$type])}}" class="btn btn-success">UnBlock User</a>
+                        @endif
                     </div>
                 </form>
     </div>
 </div>
+
+@endsection

@@ -1,18 +1,20 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.layout')
+@section('title','Profile')
+@section('content')
 
+@extends('layouts.admin_sidebar')
+@extends('layouts.admin_navbar')
 
 <div class="patientprofile">
     <div class="row">
         <div class="col-md-4 box">
             <div class="well">
-                <img src="<%=image%>" class="doc-img">
+                <img src="/system_images/neymar1.jpg" class="doc-img">
                 <div class="btn-group">
-
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editimage"><i class="fa fa-picture-o"></i></button>
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editpass"><i class="fa fa-key"></i></button> -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editpass"><i class="fa fa-key"></i></button>
                 </div>
-                <h3><%= name%></h3>
+                <h3>{{$name}}</h3>
                 <p></p>
             </div>
         </div>
@@ -30,7 +32,7 @@
 
                         <td class="tdattribute">Name</td>
                         <td>:</td>
-                        <td><%=name%></td>
+                        <td>{{$name}}</td>
 
                     </tr>
 
@@ -38,7 +40,7 @@
 
                         <td class="tdattribute">Email</td>
                         <td>:</td>
-                        <td><%= email %> </td>
+                        <td>{{$email}} </td>
 
                     </tr>
 
@@ -46,18 +48,17 @@
 
                         <td class="tdattribute">Phone Number</td>
                         <td>:</td>
-                        <td><%= phone %> </td>
+                        <td>{{$phone}} </td>
 
                     </tr>
                     <tr>
                         <td class="tdattribute">Address</td>
                         <td>:</td>
-                        <td><%= address %> </td>
+                        <td>{{$address}} </td>
 
                     </tr>
                 </tbody>
             </table>
-
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editmodal"><i class="fa fa-pencil-square-o"></i></button>
         </div>
     </div>
@@ -142,31 +143,31 @@
                     <form action="/admin/edit" method="POST">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" name="name" value="<%= name %> ">
+                            <input type="text" class="form-control" name="name" value="{{$name }} ">
                             <span style="color:red;"></span>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="password" value="<%= password %>" hidden>
+                            <input type="text" class="form-control" name="password" value="{{$password }}" hidden>
                             <span style="color:red;"></span>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="text" class="form-control" name="email" value="<%= email %>">
+                            <input type="text" class="form-control" name="email" value="{{$email }}">
                             <span style="color:red;"></span>
                         </div>
                         <div class="form-group">
                             <label>Phone No:</label>
-                            <input type="text" class="form-control" name="phone" value="<%=phone%>">
+                            <input type="text" class="form-control" name="phone" value="{{$phone}}">
                             <span style="color:red;"></span>
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text" class="form-control" name="address" value="<%= address %> ">
+                            <input type="text" class="form-control" name="address" value="{{$address }} ">
                             <span style="color:red;"></span>
                         </div>
                         <div class="form-group">
                             <label>Security Que</label>
-                            <input type="text" class="form-control" name="sq" value="<%= sq%>">
+                            <input type="text" class="form-control" name="sq" value="{{$sq}}">
                             <span style="color:red;"></span>
                         </div>
 
@@ -183,10 +184,5 @@
 
 </div>
 </div>
-<script type="text/javascript">
-    $('.clockpicker').clockpicker({
-        placement: 'top',
-        align: 'left',
-        donetext: 'Done'
-    });
-</script>
+
+@endsection

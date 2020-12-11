@@ -1,5 +1,9 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.layout')
+@section('title','Profile')
+@section('content')
+
+@extends('layouts.admin_sidebar')
+@extends('layouts.admin_navbar')
 
 <div class="donorlist">
     
@@ -50,31 +54,29 @@
                 </thead>
                 <tbody id = "suggestion">
                     <div class="col-md-8">
-                        <% 
-                            users.forEach(function(std){ %>
-                                <tr>
-                                    <td><%= std.username %></td>
-                                    <td><%= std.name %></td>
-                                    <td><%= std.email %></td>
-                                    <td><%= std.address %></td>
-                                    <td><%= std.phone %></td>
-                                    <td>
-                                        <% if(std.status == 1){%>
-                                            valid
-                                        <%} else{%>
-                                            Blocked
-                                        <%}%>
-                                    </td>
-                                    <td>
-                                        <a href="/admin/personalUseredit/<%= std.id%>" class="btn btn-warning">View</a>
-                                    </td>
-                                </tr>
-                        <%
-                            }); 
-                        %>
+                        @foreach($users as $user)
+                            <tr>
+                                <td>{{$user['username']}}</td>
+                                <td>{{$user['name']}}</td>
+                                <td>{{$user['email']}}</td>
+                                <td>{{$user['address']}}</td>
+                                <td>{{$user['phone']}}</td>
+                                <td>
+                                    @if($user['status'] == 1)
+                                        valid
+                                    @elseif($user['status'] == 2)
+                                        Blocked
+                                    @endif
+                                </td>
+                                <td>
+                                <a href="{{route('admin.personalUseredit', $user['id'])}}" class="btn btn-warning">View</a>
+                                </td>
+                            </tr>
+                        @endforeach
                 </tbody>
             </table>
             </div>
 </div>
 
-<script type="text/javascript" src = "/assets/js/main.js"></script>
+<script type="text/javascript" src = "/js/main.js"></script>
+@endsection

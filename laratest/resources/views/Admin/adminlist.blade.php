@@ -1,5 +1,9 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.layout')
+@section('title','Profile')
+@section('content')
+
+@extends('layouts.admin_sidebar')
+@extends('layouts.admin_navbar')
 
 <div class="donorlist">
     
@@ -22,22 +26,20 @@
             </thead>
             <tbody id = "suggestion">
                 <div class="col-md-8">
-                    <% 
-                        admins.forEach(function(std){ %>
-                            <tr>
-                                <td><%= std.username %></td>
-                                <td><%= std.name %></td>
-                                <td><%= std.email %></td>
-                                <td><%= std.address %></td>
-                                <td><%= std.phone %></td>
-                                <td>Valid</td>
-                            </tr>
-                    <%
-                        }); 
-                    %>
+                    @foreach($admins as $admin)
+                        <tr>
+                            <td>{{$admin['username']}}</td>
+                            <td>{{$admin['name']}}</td>
+                            <td>{{$admin['email']}}</td>
+                            <td>{{$admin['address']}}</td>
+                            <td>{{$admin['phone']}}</td>
+                            <td>Valid</td>
+                        </tr>
+                    @endforeach
             </tbody>
         </table>
         </div>
 </div>
 
-<script type="text/javascript" src = "/assets/js/admin.js"></script>
+<script type="text/javascript" src = "/js/admin.js"></script>
+@endsection
