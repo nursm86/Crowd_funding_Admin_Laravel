@@ -1,9 +1,6 @@
-@extends('layouts.layout')
-@section('title','Profile')
+@extends('layouts.Admin_layout')
+@section('title',"Personal User's Information")
 @section('content')
-
-@extends('layouts.admin_sidebar')
-@extends('layouts.admin_navbar')
 
 <div class="d-flex justify-content-center align-items-center container ">
     <div class="col-md-8 box">
@@ -39,9 +36,9 @@
                     <div class="form-group">
                         <a href="{{route('admin.personaluserlist')}}" class="btn btn-warning">Cancel</a>
                         @if($status == 1)
-                            <a href="{{route('admin.blockuser',[$id,$type])}}" class="btn btn-danger">Block User</a>
+                            <a href="{{route('admin.blockuser',$id)}}" class="btn btn-danger">Block User</a>
                         @else
-                            <a href="{{route('admin.unblockuser',[$id,$type])}}" class="btn btn-success">UnBlock User</a>
+                            <a href="{{route('admin.unblockuser',$id)}}" class="btn btn-success">UnBlock User</a>
                         @endif
                     </div>
                 </form>

@@ -1,5 +1,6 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.Admin_layout')
+@section('title','Running Campaigns')
+@section('content')
 
 <div class="patientprofile">
     <div class="d-flex justify-content-center align-items-center container ">
@@ -45,30 +46,31 @@
             </h4>
         </div>
 
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $("#n").hide();
-                $("#u").hide();
-                $("#val").change(function(){ 
-                    var val = $('#val').val();
-                    if(val == 1){
-                        $("#n").hide();
-                        $("#u").hide();
-                    }
-                    if(val == 2){
-                        $("#n").hide();
-                        $("#u").hide();
-                    }
-                    if(val == 3){
-                        $("#n").show();
-                        $("#u").hide();
-                        $(':number').show();
-                    }
-                    if(val == 4){
-                        $("#n").hide();
-                        $("#u").show();
-                        $("select").show();
-                    }
-                });
+    <script>
+        $(document).ready(function(){
+            $("#n").hide();
+            $("#u").hide();
+            $("#val").change(function(){ 
+                var val = $('#val').val();
+                if(val == 1){
+                    $("#n").hide();
+                    $("#u").hide();
+                }
+                if(val == 2){
+                    $("#n").hide();
+                    $("#u").hide();
+                }
+                if(val == 3){
+                    $("#n").show();
+                    $("#u").hide();
+                    $(':number').show();
+                }
+                if(val == 4){
+                    $("#n").hide();
+                    $("#u").show();
+                    $("select").show();
+                }
             });
-        </script>
+        });
+    </script>
+@endsection

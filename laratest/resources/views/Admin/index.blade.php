@@ -1,9 +1,6 @@
-@extends('layouts.layout')
+@extends('layouts.Admin_layout')
 @section('title','Dashboard')
 @section('content')
-
-@extends('layouts.admin_navbar')
-@extends('layouts.admin_sidebar')
 
 <div class="col-md-8 donor">
     <a href="{{route('admin.generateReport')}}" class="btn btn-success">Generate Report</a>

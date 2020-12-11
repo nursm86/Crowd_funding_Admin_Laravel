@@ -1,5 +1,6 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.Admin_layout')
+@section('title','Campaigns Information')
+@section('content')
 
 <div class="donorlist">
     
@@ -21,30 +22,31 @@
                 </thead>
                 <tbody id = "suggestion">
                     <div class="col-md-8">
-                        <% 
-                            problems.forEach(function(std){ %>
-                                <tr>
-                                    <td><%= std.username %></td>
-                                    <td><%= std.title %></td>
-                                    <td><%= std.description %></td>
-                                    <td><%= std.ud %></td>
-                                    <td>
-                                        <a href="/admin/campaignedit/<%= std.cid%>" class="btn btn-warning" target = "new">View Campaign</a> | 
-                                        <% if(std.type == 1){%>
-                                            <a href="/admin/personaluseredit/<%=std.uid%>" class="btn btn-warning" target = "new">View User</a> | 
-                                        <%} else if(std.type == 2){%>
-                                            <a href="/admin/organizationaluseredit/<%=std.uid%>" class="btn btn-warning" target = "new">View User</a> | 
-                                        <%} else if(std.type == 3){%>
-                                            <a href="/admin/volunteeredit/<%=std.uid%>" class="btn btn-warning" target = "new">View User</a> |
-                                        <%}%>
-                                        <a href="/admin/deleteReport/<%= std.rid%>" class="btn btn-danger">Delete Report</a>
-                                    </td>
-                                
-                                </tr>
-                        <%
-                            }); 
-                        %>
+                        @foreach($problems as $problem)
+                            <tr>
+                                <td>{{$problem['username']}}</td>
+                                <td>{{$problem['title']}}</td>
+                                <td>{{$problem['description']}}</td>
+                                <td>{{$problem['ud']}}</td>
+                                <td>
+                                    <a href="{{route('admin.campaignedit',$problem['cid'])}}" class="btn btn-warning" target = "new">View Campaign</a> | 
+                                    
+                                    @if($problem['type'] == 1)
+                                        <a href="{{route('admin.personalUseredit', $problem['uid'])}}" class="btn btn-warning" target = "new">View User</a> | 
+                                    @elseif($problem['type'] == 2)
+                                        <a href="{{route('admin.organizationalUseredit',$problem['uid'])}}" class="btn btn-warning" target = "new">View User</a> | 
+                                    @elseif($problem['type'] == 3)
+                                        <a href="{{route('admin.volunteeredit',$problem['uid'])}}" class="btn btn-warning" target = "new">View User</a> |
+                                    @endif
+                                    
+                                    <a href="{{route('admin.deleteReport',$problem['rid'])}}" class="btn btn-danger">Delete Report</a>
+                                </td>
+                            
+                            </tr>
+                        @endforeach
                 </tbody>
             </table>
             </div>
 </div>
+
+@endsection

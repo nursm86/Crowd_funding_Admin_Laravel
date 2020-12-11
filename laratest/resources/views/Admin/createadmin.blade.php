@@ -1,22 +1,12 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
-
-<% if(typeof alert != 'undefined') { %>
-    <% alert.forEach(function(error) { %>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <%= error.msg %>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-    <% }) %>
-<% } %>
+@extends('layouts.Admin_layout')
+@section('title','Create New Admin')
+@section('content')
 
 <div class="patientprofile">
     <div class="d-flex justify-content-center align-items-center container ">
         <div class="col-md-8 donor">
             <h1 class="text-white bg-dark text-center">
-                Create Admin
+                Create New Admin
             </h1>
 			<div class="form-group">
 					<span></span>
@@ -75,3 +65,5 @@
         </form>
 
         <script type="text/javascript" src = "/assets/js/admin.js"></script>
+
+@endsection

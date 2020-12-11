@@ -1,5 +1,6 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.Admin_layout')
+@section('title','Released Campaigns')
+@section('content')
 
 <div class="donorlist">
     
@@ -25,24 +26,23 @@
                 </thead>
                 <tbody id = "suggestion">
                     <div class="col-md-8">
-                        <% 
-                            campaings.forEach(function(std){ %>
-                                <tr>
-                                    <td><%= std.username %></td>
-                                    <td><%= std.email %></td>
-                                    <td><%= std.title %></td>
-                                    <td><%= std.tf %></td>
-                                    <td><%= std.rf %></td>
-                                    <td><%= std.pd %></td>
-                                    <td><%= std.ed %></td>
-                                    <td>
-                                        Released
-                                    </td>
-                                </tr>
-                        <%
-                            }); 
-                        %>
+                        @foreach($campaigns as $campaign)
+                            <tr>
+                                <td>{{$campaign['username']}}</td>
+                                <td>{{$campaign['email']}}</td>
+                                <td>{{$campaign['title']}}</td>
+                                <td>{{$campaign['tf']}}</td>
+                                <td>{{$campaign['rf']}}</td>
+                                <td>{{$campaign['pd']}}</td>
+                                <td>{{$campaign['ed']}}</td>
+                                <td>
+                                    Released
+                                </td>
+                            </tr>
+                        @endforeach
                 </tbody>
             </table>
             </div>
 </div>
+
+@endsection

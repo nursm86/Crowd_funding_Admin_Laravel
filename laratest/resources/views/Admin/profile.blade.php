@@ -1,9 +1,6 @@
-@extends('layouts.layout')
+@extends('layouts.Admin_layout')
 @section('title','Profile')
 @section('content')
-
-@extends('layouts.admin_sidebar')
-@extends('layouts.admin_navbar')
 
 <div class="patientprofile">
     <div class="row">

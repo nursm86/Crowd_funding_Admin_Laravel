@@ -1,5 +1,6 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.Admin_layout')
+@section('title','Volunteers List')
+@section('content')
 
 <div class="donorlist">
     
@@ -51,33 +52,32 @@
                 </thead>
                 <tbody id = "suggestion">
                     <div class="col-md-8">
-                        <% 
-                            volunteers.forEach(function(std){ %>
-                                <tr>
-                                    <td><%= std.username %></td>
-                                    <td><%= std.name %></td>
-                                    <td><%= std.email %></td>
-                                    <td><%= std.address %></td>
-                                    <td><%= std.phone %></td>
-                                    <td>
-                                        <% if(std.status == 1){%>
-                                            valid
-                                        <%} else if(std.status == 0){%>
-                                            InValid
-                                        <%} else{%>
-                                            Blocked
-                                        <%}%>
-                                    </td>
-                                    <td>
-                                        <a href="/admin/volunteeredit/<%= std.id%>" class="btn btn-warning">View</a>
-                                    </td>
-                                </tr>
-                        <%
-                            }); 
-                        %>
+                        @foreach($volunteers as $volunteer)
+                            <tr>
+                                <td>{{$volunteer['username']}}</td>
+                                <td>{{$volunteer['name']}}</td>
+                                <td>{{$volunteer['email']}}</td>
+                                <td>{{$volunteer['address']}}</td>
+                                <td>{{$volunteer['phone']}}</td>
+                                <td>
+                                    @if($volunteer['status'] == 1)
+                                        valid
+                                    @elseif($volunteer['status'] == 0)
+                                        InValid
+                                    @else
+                                        Blocked
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{route('admin.volunteeredit',$volunteer['id'])}}" class="btn btn-warning">View</a>
+                                </td>
+                            </tr>
+                        @endforeach
                 </tbody>
             </table>
             </div>
 </div>
 
 <script type="text/javascript" src = "/assets/js/main.js"></script>
+
+@endsection

@@ -1,5 +1,6 @@
-<%- include('../partials/admin_navbar.ejs')%>
-<%- include('../partials/admin_sidebar.ejs')%>
+@extends('layouts.Admin_layout')
+@section('title','Running Campaigns')
+@section('content')
 
 <div class="donorlist">
     
@@ -52,37 +53,36 @@
                 </thead>
                 <tbody id = "suggestion">
                     <div class="col-md-8">
-                        <% 
-                            campaings.forEach(function(std){ %>
-                                <tr>
-                                    <td><%= std.username %></td>
-                                    <td><%= std.email %></td>
-                                    <td><%= std.title %></td>
-                                    <td><%= std.tf %></td>
-                                    <td><%= std.rf %></td>
-                                    <td><%= std.pd %></td>
-                                    <td><%= std.ed %></td>
-                                    <td>
-                                        <% if(std.status == 1){%>
-                                            valid
-                                        <%} else if(std.status == 0){%>
-                                            InValid
-                                        <%} else if(std.status == 3){%>
-                                            Complete
-                                        <%} else{%>
-                                            Blocked
-                                        <%}%>
-                                    </td>
-                                    <td>
-                                        <a href="/admin/campaignedit/<%= std.id%>" class="btn btn-warning">View</a>
-                                    </td>
-                                </tr>
-                        <%
-                            }); 
-                        %>
+                        @foreach($campaigns as $campaign)
+                            <tr>
+                                <td>{{$campaign['username']}}</td>
+                                <td>{{$campaign['email']}}</td>
+                                <td>{{$campaign['title']}}</td>
+                                <td>{{$campaign['tf']}}</td>
+                                <td>{{$campaign['rf']}}</td>
+                                <td>{{$campaign['pd']}}</td>
+                                <td>{{$campaign['ed']}}</td>
+                                <td>
+                                    @if($campaign['status'] == 1)
+                                        valid
+                                    @elseif($campaign['status'] == 0)
+                                        InValid
+                                    @elseif($campaign['status'] == 3)
+                                        Complete
+                                    @else
+                                        Blocked
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{route('admin.campaignedit',$campaign['id'])}}" class="btn btn-warning">View</a>
+                                </td>
+                            </tr>
+                        @endforeach
                 </tbody>
             </table>
             </div>
 </div>
 
 <script type="text/javascript" src = "/assets/js/campaign.js"></script>
+
+@endsection

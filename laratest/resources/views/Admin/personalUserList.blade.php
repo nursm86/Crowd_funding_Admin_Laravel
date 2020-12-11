@@ -1,9 +1,6 @@
-@extends('layouts.layout')
-@section('title','Profile')
+@extends('layouts.Admin_layout')
+@section('title','Personal Users List')
 @section('content')
-
-@extends('layouts.admin_sidebar')
-@extends('layouts.admin_navbar')
 
 <div class="donorlist">
     
