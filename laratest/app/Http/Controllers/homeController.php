@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 class homeController extends Controller
 {
-    public function index(){
+    public function index(Request $req){
         return view('home.index');
+        
     }
     public function donate($id){
         return view('home.donate');

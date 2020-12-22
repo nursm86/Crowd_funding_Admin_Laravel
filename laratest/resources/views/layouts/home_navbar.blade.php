@@ -32,15 +32,15 @@
                     <a class="nav-link " href="#footer" >Contact Us</a>
                   </li>
                   
-                <!-- <% if(user.type == 0){ %>
+                 @if(session('utype') == 0)
                   <li class = "nav-item">
                     <a class="nav-link" href="/admin">Dashboard</a>
                   </li>
-                <% }else{ %>
+                @else
                 <li class = "nav-item">
                   <a class = "nav-link" href = "" hidden>Dashboard</a>
                 </li>
-                <% } %>  -->
+                @endif
                   
                   <li class="nav-item">
                   <a class="nav-link " href="{{route('login.index')}}">Login</a>

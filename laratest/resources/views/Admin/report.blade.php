@@ -46,31 +46,32 @@
             </h4>
         </div>
 
-    <script>
-        $(document).ready(function(){
-            $("#n").hide();
-            $("#u").hide();
-            $("#val").change(function(){ 
-                var val = $('#val').val();
-                if(val == 1){
-                    $("#n").hide();
-                    $("#u").hide();
-                }
-                if(val == 2){
-                    $("#n").hide();
-                    $("#u").hide();
-                }
-                if(val == 3){
-                    $("#n").show();
-                    $("#u").hide();
-                    $(':number').show();
-                }
-                if(val == 4){
-                    $("#n").hide();
-                    $("#u").show();
-                    $("select").show();
-                }
+        <script>
+            $(document).ready(function(){
+                $("#n").hide();
+                $("#u").hide();
+                $("#val").change(function(){ 
+                    var val = $('#val').val();
+                    if(val == 1){
+                        $("#n").hide();
+                        $("#u").hide();
+                    }
+                    if(val == 2){
+                        $("#n").hide();
+                        $("#u").hide();
+                    }
+                    if(val == 3){
+                        $("#n").show();
+                        $("#u").hide();
+                        $(':number').show();
+                    }
+                    if(val == 4){
+                        $("#n").hide();
+                        $("#u").show();
+                        $("select").show();
+                    }
+                });
             });
-        });
-    </script>
+        </script>
+
 @endsection

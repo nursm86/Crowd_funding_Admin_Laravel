@@ -32,21 +32,22 @@
 		<br>
 		<h1 class="text-black text-center">Login</h1>
 		<center><h2 style="color: red;"></h2></center>
-		<form name="myForm" action="" onsubmit="return validateForm()" method="POST">
+		<form name="myForm" action="" method="POST">
+			{{ csrf_field() }}
 			<div class="col-lg-8 m-auto d-block">
 				<div class="form-group">
 					<label for="user">Username:</label>
-					<input type="text" name="username" id="user" class="form-control" required>
-					<span id="err_user" style="color:red;"></span>
+					<input type="text" name="username" id="user" class="form-control" value="{{old('username')}}">
+					<span id="err_user" style="color:red;">{{$errors->first('username')}}</span>
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
-					<input type="password" name="password" id="pass" class="form-control" required>
-					<span  id="err_pass" style="color:red;"></span>
+					<input type="password" name="password" id="pass" class="form-control" value="{{old('password')}}">
+					<span  id="err_pass" style="color:red;">{{$errors->first('password')}}</span>
 				</div>
 				<div class="form-group">
 					<input type="checkbox"  name="rememberme"> Remember Me<br>
-					<span style="color:red;"></span>
+					<span style="color:red;">{{session('errmsg')}}</span>
 				</div>
 				<div class="form-group">
 				Forgot password?? <a href="{{route('login.forgotpassword')}}">Click here</a>
