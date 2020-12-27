@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-4 box">
             <div class="well">
-                <img src="/system_images/neymar1.jpg" class="doc-img">
+                <img src="{{$image}}" class="doc-img">
                 <h3 style="color:red;">{{session('errmsg')}}</h3>
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editimage"><i class="fa fa-picture-o"></i></button>
@@ -138,12 +138,12 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" name="name" value="{{$name }} ">
+                            <input type="text" class="form-control" name="name" value="{{$name}}">
                             <span style="color:red;">{{$errors->first('name')}}</span>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="text" class="form-control" name="email" value="{{$email }}">
+                            <input type="text" class="form-control" name="email" value="{{$email}}">
                             <span style="color:red;">{{$errors->first('email')}}</span>
                         </div>
                         <div class="form-group">
@@ -153,7 +153,7 @@
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text" class="form-control" name="address" value="{{$address }} ">
+                            <input type="text" class="form-control" name="address" value="{{$address}}">
                             <span style="color:red;">{{$errors->first('address')}}</span>
                         </div>
                         <div class="form-group">

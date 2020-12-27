@@ -56,8 +56,8 @@
                                 <td>{{$user['username']}}</td>
                                 <td>{{$user['name']}}</td>
                                 <td>{{$user['email']}}</td>
-                                <td>{{$user['address']}}</td>
-                                <td>{{$user['phone']}}</td>
+                                <td>{{$user['Address']}}</td>
+                                <td>{{$user['contactno']}}</td>
                                 <td>
                                     @if($user['status'] == 1)
                                         valid

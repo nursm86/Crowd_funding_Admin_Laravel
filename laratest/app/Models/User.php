@@ -9,4 +9,10 @@ class User extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+    public static function changePass($id, $pass){
+        $user = self::find($id);
+        $user->password = $pass;
+        $user->save();
+    }
 }

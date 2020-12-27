@@ -57,8 +57,8 @@
                                 <td>{{$organization['username']}}</td>
                                 <td>{{$organization['name']}}</td>
                                 <td>{{$organization['email']}}</td>
-                                <td>{{$organization['address']}}</td>
-                                <td>{{$organization['phone']}}</td>
+                                <td>{{$organization['Address']}}</td>
+                                <td>{{$organization['contactno']}}</td>
                                 <td>
                                     @if($organization['status'] == 1)
                                         valid

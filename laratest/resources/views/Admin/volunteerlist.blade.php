@@ -58,7 +58,7 @@
                                 <td>{{$volunteer['name']}}</td>
                                 <td>{{$volunteer['email']}}</td>
                                 <td>{{$volunteer['address']}}</td>
-                                <td>{{$volunteer['phone']}}</td>
+                                <td>{{$volunteer['contactno']}}</td>
                                 <td>
                                     @if($volunteer['status'] == 1)
                                         valid

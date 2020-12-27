@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\Models\Campaign;
-Use App\Models\Admin;
-Use App\Models\Personal;
-Use App\Models\ContactAdmin;
 Use App\Models\Donation;
-Use App\Models\Organization;
-Use App\Models\Report;
-Use App\Models\Volunteer;
+
 use Validator;
 
 class homeController extends Controller

@@ -19,7 +19,7 @@
                         <label>Email: {{$email}}</label>
                     </div>
                     <div class="form-group">
-                        <label>Phone: {{$phone}}</label>
+                        <label>Phone: {{$contactno}}</label>
                     </div>
                     <div class="form-group">
                         <label>Address: {{$address}}</label>

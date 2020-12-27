@@ -14,7 +14,7 @@
                 <thead>
                     <tr>
                         <td>User Name</td>
-                        <td>Campaing Title</td>
+                        <td>Campaign Title</td>
                         <td>Report Description</td>
                         <td>Complain Date</td>
                         <td></td>

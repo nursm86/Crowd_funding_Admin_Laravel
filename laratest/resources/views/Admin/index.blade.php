@@ -15,7 +15,7 @@
 
                         <td class="tdattribute">Total Valid Campaign </td>
                         <td>:</td>
-                        <td>1</td>
+                        <td>{{$validCampaign}}</td>
 
                     </tr>
 
@@ -23,45 +23,45 @@
 
                         <td class="tdattribute">Total Invalid Campaign </td>
                         <td>:</td>
-                        <td>2 </td>
+                        <td>{{$inValidCampaign}}</td>
 
                     </tr>
 
                     <tr>
                         <td class="tdattribute">Total Blocked Campaign </td>
                         <td>:</td>
-                        <td>3</td>
+                        <td>{{$blockedValidCampaign}}</td>
 
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Complete Campaign</td>
                         <td>:</td>
-                        <td>4</td>
+                        <td>{{$completeValidCampaign}}</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Released Campaign</td>
                         <td>:</td>
-                        <td>5</td>
+                        <td>{{$releasedValidCampaign}}</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Admin</td>
                         <td>:</td>
-                        <td>6</td>
+                        <td>{{$admin}}</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Personal User</td>
                         <td>:</td>
-                        <td>7 </td>
+                        <td>{{$personal}}</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Organizational User</td>
                         <td>:</td>
-                        <td>8</td>
+                        <td>{{$orgranization}}</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Total Volunteer</td>
                         <td>:</td>
-                        <td>9</td>
+                        <td>{{$volunteer}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -92,6 +92,9 @@
                     <a href="{{route('admin.verifyCampaign',$id)}}" class="btn btn-success">Verify Campaign</a>
                 @elseif($status == 2)
                     <a href="{{route('admin.unblockCampaign',$id)}}" class="btn btn-success">UnBlock Campaign</a>
+                @elseif($status == 3)
+                    <a href="{{route('admin.blockCampaign',$id)}}" class="btn btn-danger">Block Campaign</a>
+                    <a href="{{route('admin.releaseCampaign',$id)}}" class="btn btn-success">Release Campaign</a>
                 @endif
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editmodal" @if($status == 4)
                         hidden
@@ -111,10 +114,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/campaignedit/{{$id}} " method="POST">
+                    <form action="" method="POST">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" class="form-control" name="title" value="{{$title}} ">
+                            <input type="text" class="form-control" name="title" value="{{$title}}">
                             <span style="color:red;"></span>
                         </div>
                         <div class="form-group">
@@ -124,7 +128,7 @@
                         </div>
                         <div class="form-group">
                             <label>Description:</label>
-                            <input type="text" class="form-control" name="description" value="{{$description}} ">
+                            <input type="text" class="form-control" name="description" value="{{$description}}">
                             <span style="color:red;"></span>
                         </div>
                 </div>

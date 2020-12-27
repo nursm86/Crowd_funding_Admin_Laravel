@@ -66,6 +66,7 @@ Route::group(['middleware'=>['sess']],function(){
 
         Route::get('/admin/campaignslist',[adminController::class,'campaignslist'])->name('admin.campaignslist');
         Route::get('/admin/campaignedit/{id}',[adminController::class,'campaignedit'])->name('admin.campaignedit');
+        Route::post('/admin/campaignedit/{id}',[adminController::class,'campaignupdate']);
 
         Route::get('/admin/blockCampaign/{id}',[adminController::class,'blockCampaign'])->name('admin.blockCampaign');
         Route::get('/admin/unblockCampaign/{id}',[adminController::class,'unblockCampaign'])->name('admin.unblockCampaign');

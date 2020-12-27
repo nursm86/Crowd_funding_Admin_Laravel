@@ -20,6 +20,13 @@ class Donation extends Model
                     ->take(10);
     }
 
+    public static function getAllDonations(){
+        return self::join('users as u', 'u.id', '=', 'donations.uid')
+                    ->join('campaigns as c', 'donations.cid', '=', 'c.id')
+                    ->select('c.id as cid','u.type as type','u.id as uid', 'donations.id as did','c.title as title', 'u.username as username' ,'donations.amount as amount' ,'donations.donationDate as ud')
+                    ->get();
+    }
+
     public static function addDonation($id,$uid,$amount){
         $donation = new Donation();
         $donation->uid = $uid;
@@ -30,6 +37,11 @@ class Donation extends Model
 
         $campaign = Campaign::find($id);
         $campaign->raised_fund += $amount;
+
+        if($campaign->raised_fund >= $campaign->target_fund){
+            $campaign->status = 3;
+        }
+
         $campaign->save();
     }
 }

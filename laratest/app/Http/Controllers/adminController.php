@@ -5,36 +5,61 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminRequest;
 use Validator;
+Use App\Models\User;
+Use App\Models\Campaign;
+Use App\Models\Donation;
+Use App\Models\Admin;
+Use App\Models\Personal;
+Use App\Models\ContactAdmin;
+Use App\Models\Organization;
+Use App\Models\Report;
+Use App\Models\Volunteer;
+use Carbon\Carbon;
 
 class adminController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        $count = Admin::getAllCount();
+        return view('admin.index',$count);
     }
 
-    public function profile()
+    public function profile(Request $req)
     {
-        $admin = ['id'=>1,'image' => '/system_images/neymar1.jpg','name'=>'Md. Nur Islam','email'=>'nursm86@gmail.com','phone'=>'01622114901','address'=>'dhalpur Jatrabari Dhaka 1204','password'=>'12345678','sq'=>'me'];
+        $admin = Admin::getAdmin($req->session()->get('uid'));
         return view('admin.profile',$admin);
     }
 
-    public function edit($id, AdminRequest $req){
+    public function edit($id, Request $req){
+        $validation = Validator::make($req->all(),[
+            'name' => 'required',
+            'phone' => 'required | min:11|max:14',
+            'email' => 'required | email',
+            'address' => 'required | min : 5',
+            'sq' => 'required'
+        ]);
+
+        if($validation->fails()){
+            return back()
+                    ->with('errors',$validation->errors());
+        }
+
+        Admin::updateAdmin($id,$req);
         return redirect()->route('admin.profile');
     }
     
     public function changepass($id, Request $req){
         $validation = Validator::make($req->all(),[
             'pass' => 'required',
-            'npass' => 'required | same:cpass| min:6',
-            'cpass' => 'required |min:6'
+            'npass' => 'required | same:cpass| min:4',
+            'cpass' => 'required |min:4'
         ]);
-
         if($validation->fails()){
             return back()
                     ->with('errors',$validation->errors())
                     ->withInput();
         }
+        User::changePass($id,$req->npass);
         return redirect()->route('login.index');
     }
 
@@ -46,7 +71,11 @@ class adminController extends Controller
                 return redirect()->route('admin.profile');
             }
             else{
-                if($file->move('system_images',$req->session()->get('uname').".".$file->getClientOriginalExtension())){
+                $filename = $req->session()->get('uname').".".$file->getClientOriginalExtension();
+                $user = User::find($id);
+                $user->image = '/system_images/'.$filename;
+                $user->save();
+                if($file->move('system_images',$filename)){
                     return redirect()->route('admin.profile');
                 }
                 else{
@@ -59,74 +88,67 @@ class adminController extends Controller
 
     public function adminlist()
     {
-        $admins = [
-            ['id'=>1,'username'=>'xyz','name'=>'XYZ','email'=>'xyz@gmail.com','address'=>'keyboard','phone'=>'012'],
-            ['id'=>2,'username'=>'abc','name'=>'ABC','email'=>'abc@gmail.com','address'=>'keyboard','phone'=>'345'],
-            ['id'=>3,'username'=>'pqr','name'=>'PQR','email'=>'pqr@gmail.com','address'=>'keyboard','phone'=>'678']
-        ];
+        $admins = Admin::getallAdmins();
         return view('admin.adminlist')->with('admins',$admins);
     }
 
     public function personaluserlist()
     {
-        $users = [
-            ['id'=>1,'username'=>'xyz','name'=>'XYZ','email'=>'xyz@gmail.com','address'=>'keyboard','phone'=>'012','status' => 1],
-            ['id'=>2,'username'=>'abc','name'=>'ABC','email'=>'abc@gmail.com','address'=>'keyboard','phone'=>'345','status' => 1],
-            ['id'=>3,'username'=>'pqr','name'=>'PQR','email'=>'pqr@gmail.com','address'=>'keyboard','phone'=>'678','status' => 2]
-        ];
+        $users = Personal::getAllPersonals();
         return view('admin.personaluserlist')->with('users',$users);
     }
 
     public function personalUseredit($id)
     {
-        $user = ['id'=>1,'username'=>'xyz','name'=>'XYZ','email'=>'xyz@gmail.com','address'=>'keyboard','phone'=>'012','status' => 2,'type'=>1];
+        $user = Personal::getPersonalById($id);
         return view('admin.personalUseredit',$user);
     }
 
     public function blockuser($id)
     {
-        return ("$id");
+        $user = User::find($id);
+        $user->status = 2;
+        $user->save();
+        return back();
     }
 
     public function unblockuser($id)
     {
-        return ("$id");
+        $user = User::find($id);
+        $user->status = 1;
+        $user->save();
+        return back();
     }
 
     public function verifyuser($id)
     {
-        return ("$id");
+        $user = User::find($id);
+        $user->status = 1;
+        $user->save();
+        return back();
     }
 
     public function organizationalList()
     {
-        $organizations = [
-            ['id'=>1,'username'=>'xyz','name'=>'XYZ','email'=>'xyz@gmail.com','address'=>'keyboard','phone'=>'012','status' => 0],
-            ['id'=>2,'username'=>'abc','name'=>'ABC','email'=>'abc@gmail.com','address'=>'keyboard','phone'=>'345','status' => 1],
-            ['id'=>3,'username'=>'pqr','name'=>'PQR','email'=>'pqr@gmail.com','address'=>'keyboard','phone'=>'678','status' => 2]
-        ];
+        $organizations = Organization::getAllOrganizations();
         return view('admin.organizationList')->with('organizations',$organizations);
     }
 
     public function organizationalUseredit($id)
     {
-        $organization =  ['id'=>1,'username'=>'xyz','name'=>'XYZ','email'=>'xyz@gmail.com','address'=>'keyboard','phone'=>'012','status' => 0];
+        $organization =  Organization::getOrganizationById($id);
         return view('admin.organizationalUseredit',$organization);
     }
 
     public function volunteerlist()
     {
-        $volunteers = [
-            ['id'=>1,'username'=>'xyz','name'=>'XYZ','email'=>'xyz@gmail.com','address'=>'keyboard','phone'=>'012','status' => 0],
-            ['id'=>2,'username'=>'abc','name'=>'ABC','email'=>'abc@gmail.com','address'=>'keyboard','phone'=>'345','status' => 1],
-            ['id'=>3,'username'=>'pqr','name'=>'PQR','email'=>'pqr@gmail.com','address'=>'keyboard','phone'=>'678','status' => 2]
-        ];
+        $volunteers = Volunteer::getAllVolunteers();
         return view('admin.volunteerlist')->with('volunteers',$volunteers);
     }
 
     public function volunteeredit($id)
     {
-        $volunteer=  ['id'=>1,'username'=>'xyz','name'=>'XYZ','email'=>'xyz@gmail.com','address'=>'keyboard','phone'=>'012','status' => 0];
+        $volunteer= Volunteer::getVolunteerById($id);
         return view('admin.volunteeredit',$volunteer);
     }
 
@@ -143,7 +165,9 @@ class adminController extends Controller
                 return redirect()->route('admin.create');
             }
             else{
-                if($file->move('system_images',$req->username.".".$file->getClientOriginalExtension())){
+                $filename = $req->username.".".$file->getClientOriginalExtension();
+                if($file->move('system_images',$filename)){
+                    Admin::createAdmin($req,'/system_images/'.$filename);
                     return redirect()->route('admin.adminlist');
                 }
                 else{
@@ -157,85 +181,101 @@ class adminController extends Controller
 
     public function donationlist()
     {
-        $donations = [
-            ['username'=>'xyz','title'=>'Give me some money','amount'=>50,'ud'=>'11/12/2020','type'=>3,'cid'=>3,'uid'=>3],
-            ['username'=>'abc','title'=>'Give Us some money','amount'=>100,'ud'=>'12/12/2020','type'=>1,'cid'=>1,'uid'=>1],
-            ['username'=>'pqr','title'=>'Give them some money','amount'=>150,'ud'=>'13/12/2020','type'=>2,'cid'=>2,'uid'=>2]
-        ];
+        $donations = Donation::getAllDonations();
         return view('admin.donationHistory')->with('donations',$donations);
     }
 
     public function releasedcampaign()
     {
-        $campaigns = [
-            ['username'=>'xyz','email'=>'xyz@gmail.com','title'=>'Give me Some money','tf'=>1000,'rf'=>200,'pd'=>'8/12/2020','ed'=>'15/11/2020'],
-            ['username'=>'abc','email'=>'abc@gmail.com','title'=>'Give us Some money','tf'=>1000,'rf'=>100,'pd'=>'8/12/2020','ed'=>'15/11/2020'],
-            ['username'=>'pqr','email'=>'pqr@gmail.com','title'=>'Give them Some money','tf'=>1000,'rf'=>300,'pd'=>'8/12/2020','ed'=>'15/11/2020']
-        ];
+        $campaigns = Campaign::getReleasedCampaigns();
         return view('admin.releasedcampaign')->with('campaigns',$campaigns);
     }
 
     public function campaignslist()
     {
-        $campaigns = [
-            ['username'=>'xyz','email'=>'xyz@gmail.com','title'=>'Give me Some money','tf'=>1000,'rf'=>200,'pd'=>'8/12/2020','ed'=>'15/11/2020','status'=>0,'id'=>1],
-            ['username'=>'abc','email'=>'abc@gmail.com','title'=>'Give us Some money','tf'=>1000,'rf'=>100,'pd'=>'8/12/2020','ed'=>'15/11/2020','status'=>1,'id'=>2],
-            ['username'=>'pqr','email'=>'pqr@gmail.com','title'=>'Give them Some money','tf'=>1000,'rf'=>300,'pd'=>'8/12/2020','ed'=>'15/11/2020','status'=>2,'id'=>3]
-        ];
+        $campaigns = Campaign::getAllRunningCampaings();
         return view('admin.campaignlist')->with('campaigns',$campaigns);
     }
 
     public function campaignedit($id)
     {
-        $campaign = ['username'=>'xyz','email'=>'xyz@gmail.com','title'=>'Give me Some money','tf'=>1000,'rf'=>200,'pd'=>'8/12/2020','ed'=>'15/11/2020','status'=>0,'id'=>1,'image'=>'https://uphatter.com/share.png','description'=>'Vai koida taka dau na amn koro kn'];
+        $campaign = Campaign::getCampaignById($id);
         return view('admin.campaignedit',$campaign);
+    }
+
+    public function campaignupdate($id,Request $req)
+    {
+        $validation = Validator::make($req->all(),[
+            'title' => 'required',
+            'description'=>'required',
+            'ed'=>'required'
+        ]);
+        if($validation->fails()){
+            return back()
+                    ->with('errors',$validation->errors())
+                    ->withInput();
+        }
+        $campaign = Campaign::find($id);
+        $campaign->title = $req->title;
+        $campaign->description = $req->description;
+        $campaign->endDate = $req->ed;
+        $campaign->save();
+        return redirect()->route('admin.campaignedit',$id);
     }
 
     public function blockCampaign($id)
     {
-        return ("$id");
+        $campaign = Campaign::find($id);
+        $campaign->status = 2;
+        $campaign->save();
+        return back();
     }
 
     public function unblockCampaign($id)
     {
-        return ("$id");
+        $campaign = Campaign::find($id);
+        $campaign->status = 1;
+        $campaign->save();
+        return back();
     }
     public function verifyCampaign($id)
     {
-        return ("$id");
+        $campaign = Campaign::find($id);
+        $campaign->status = 1;
+        $campaign->save();
+        return back();
     }
     public function releaseCampaign($id)
     {
-        return ("$id");
+        $campaign = Campaign::find($id);
+        $campaign->status = 4;
+        $campaign->save();
+        return back();
     }
     public function reports()
     {
-        $problems = [
-            ['username' =>'xyz','title'=>'Give me some money','description'=>'vai amn koro kn kisu taka dau nan plz','ud'=>'11/12/2020','cid'=>1,'type'=>1,'uid'=>0,'rid'=>1],
-            ['username' =>'xyz','title'=>'Give me some money','description'=>'vai amn koro kn kisu taka dau nan plz','ud'=>'11/12/2020','cid'=>1,'type'=>2,'uid'=>0,'rid'=>1],
-            ['username' =>'xyz','title'=>'Give me some money','description'=>'vai amn koro kn kisu taka dau nan plz','ud'=>'11/12/2020','cid'=>1,'type'=>3,'uid'=>0,'rid'=>1]
-        ];
+        $problems = Report::getAllReport();
         return view('admin.problemlist')->with('problems',$problems);
     }
 
     public function deleteReport($id)
     {
-        return ("$id");
+        $report = Report::find($id);
+        $report->delete();
+        return redirect()->route('admin.reports');
     }
 
     public function usersproblems()
     {
-        $problems = [
-            ['username' =>'xyz','email'=>'xyz@gmail.com','description'=>'vai amn koro kn kisu taka dau nan plz','ud'=>'11/12/2020','id'=>1,'type'=>1,'uid'=>0],
-            ['username' =>'xyz','email'=>'xyz@gmail.com','description'=>'vai amn koro kn kisu taka dau nan plz','ud'=>'11/12/2020','id'=>1,'type'=>3,'uid'=>1],
-            ['username' =>'xyz','email'=>'xyz@gmail.com','description'=>'vai amn koro kn kisu taka dau nan plz','ud'=>'11/12/2020','id'=>1,'type'=>2,'uid'=>2]
-        ];
+        $problems = ContactAdmin::getAllProblems();
         return view('admin.userproblem')->with('problems',$problems);
     }
 
     public function deleteProblem($id)
     {
-        return ("$id");
+        $report = ContactAdmin::find($id);
+        $report->delete();
+        return redirect()->route('admin.usersproblems');
     }
 
     public function generateReport()
