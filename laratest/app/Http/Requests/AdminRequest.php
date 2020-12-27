@@ -24,7 +24,15 @@ class AdminRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required'
+            'username' => 'required | min : 5',
+            'name' => 'required',
+            'pass' => 'required | min: 4 | same:cpassword',
+            'cpassword' => 'required | min:4 | same:pass',
+            'phone' => 'required | min:11|max:14',
+            'email' => 'required | email',
+            'address' => 'required | min : 5',
+            'sq' => 'required',
+            'file' => 'required'
         ];
     }
 }

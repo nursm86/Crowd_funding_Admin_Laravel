@@ -1,45 +1,38 @@
-
-
-*
-{
+* {
     margin: 0;
     padding: 0;
 }
 
-
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
-*
-{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 body,
 input {
-  font-family: "Poppins", sans-serif;
-
+    font-family: "Poppins", sans-serif;
 }
 
-#nav-bar{
+#nav-bar {
     position: sticky;
     top: 0;
 
     z-index: 1;
-
 }
-.navbar{
-    background-color: #00BFA6;
+.navbar {
+    background-color: #00bfa6;
     padding: 0 !important;
 }
-.navbar-brand img{
+.navbar-brand img {
     height: 60px;
     padding-left: 40px;
 }
-.navbar-nav li{
+.navbar-nav li {
     padding: 0 10px;
 }
-.navbar-nav li a{
+.navbar-nav li a {
     color: #ffffff !important;
     font-weight: 600;
     float: right;
@@ -47,33 +40,33 @@ input {
     margin-bottom: 3px;
 }
 
-.navbar-nav li a:hover{
+.navbar-nav li a:hover {
     background: none !important;
     border-bottom: #ffffff 3px solid;
     margin-bottom: 0;
 }
 
-.fa-bars{
+.fa-bars {
     color: #ffffff;
     font-size: 30px !important;
 }
-.navbar-toggler{
+.navbar-toggler {
     outline: none !important;
 }
 
 /*----------------banner-------------------*/
-#banner{
-    background-color: #00BFA6;
+#banner {
+    background-color: #00bfa6;
     color: #ffffff;
-    
+
     height: 50%;
 }
-.title-index{
+.title-index {
     font-size: 40px;
     font-weight: 600;
     padding-top: 130px;
 }
-.heart_img{
+.heart_img {
     /* height: 200%;
     width: 120%;
     margin-top: -100px; */
@@ -81,31 +74,30 @@ input {
     width: 100%;
     margin-top: 0px;
     margin-top: -20px;
- }
-.bottom-img{
+}
+.bottom-img {
     width: 100%;
-   
 }
 
 /*--------------services------------*/
-#services{
+#services {
     padding: 80px 0;
 }
-.service-img{
+.service-img {
     width: 100px;
     margin-top: 20px;
 }
-.services{
+.services {
     padding: 20px;
 }
-.services h4{
+.services h4 {
     padding: 5px;
     margin-top: 25px;
     text-transform: uppercase;
 }
-.title::before{
-    content: '';
-    background: #00BFA6;
+.title::before {
+    content: "";
+    background: #00bfa6;
     height: 5px;
     width: 200px;
     margin-left: auto;
@@ -113,9 +105,9 @@ input {
     display: block;
     transform: translateY(65px);
 }
-.title::after{
-    content: '';
-    background: #00BFA6;
+.title::after {
+    content: "";
+    background: #00bfa6;
     height: 10px;
     width: 50px;
     margin-left: auto;
@@ -124,65 +116,62 @@ input {
     transform: translateY(10px);
 }
 
-
 /*----------------about us----------------*/
-#about-us{
+#about-us {
     padding-bottom: 50px;
     padding-top: 50px;
 }
-.about-title{
+.about-title {
     font-size: 40px;
     font-weight: 600;
     margin-top: 8%;
 }
-#about-us ul li{
+#about-us ul li {
     margin: 10px 0;
 }
-.img_about-us{
+.img_about-us {
     height: 100%;
     width: 100%;
     margin-top: 30px;
 }
 
 /*----------------------testimonial-----------------*/
-#testimonials{
+#testimonials {
     margin: 100px 0;
 }
-.testimonials{
-    border-left: 4px solid #00BFA6;
+.testimonials {
+    border-left: 4px solid #00bfa6;
     margin-top: 50px;
     margin-bottom: 50px;
 }
-.testimonials img{
+.testimonials img {
     height: 60px;
     width: 60px;
     border-radius: 50%;
     margin: 0 10px;
 }
-.user-review{
+.user-review {
     display: inline-block;
     font-size: 12px;
 }
 
 /*-------------------social-media-----------------*/
 
-
-
 /*--------------footer-------------*/
-#footer{
-    background-color:#00BFA6;
+#footer {
+    background-color: #00bfa6;
     color: #ffffff;
     padding-top: 40px;
 }
-.footer-img{
+.footer-img {
     width: 100%;
 }
-.footer-box img{
+.footer-box img {
     width: 120px;
     transition: 0.5s;
     margin-bottom: 20px;
 }
-.footer-box .fa{
+.footer-box .fa {
     margin-right: 8px;
     font-size: 25px;
     height: 40px;
@@ -192,22 +181,139 @@ input {
     border-radius: 5px;
     background-color: #049985;
 }
-.social-icon img{
-    
+.social-icon img {
     width: 60px;
     transition: 0.5s;
 }
-.social-icon a:hover img{
+.social-icon a:hover img {
     transform: translateY(-10px);
 }
-hr{
-    background-color: #ffffff ;
+hr {
+    background-color: #ffffff;
 }
-.copyright{
+.copyright {
     margin-bottom: 0;
     padding-bottom: 20px;
     text-align: center;
 }
 
-/*----------------Login-Sign up----------------*/
+body {
+    background-color: white;
+    padding: 0px;
+}
+.card {
+    border: 1px solid black;
+    width: 300px;
+    height: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+    background-color: black;
+    padding: 5px;
+}
+.text {
+    font-family: consolas;
+    color: black;
+}
+.text-white {
+    font-family: consolas;
+    color: white;
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: consolas;
+}
+.header {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: consolas;
+    padding: 5px;
+}
+.center {
+    margin: 0 auto;
+    width: 50%;
+    padding: 20px;
+}
+.header-index {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-family: consolas;
+    padding: 5px;
+}
+.name {
+    font-family: consolas;
+    font-size: 16px;
+}
+.card-product {
+    border: 1px solid;
+    width: 300px;
+    height: 320px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+}
+.card-image {
+    width: 190px;
+    height: 190px;
+    border-radius: 5px;
+}
+.card-text {
+    text-align: center;
+}
+.price-label {
+    width: 185px;
+    padding: 3px;
+    margin-left: 2px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+.center-index {
+    margin: 0 auto;
+    width: 90%;
+    padding: 20px;
+}
+.item-image {
+    width: 200px;
+    height: 250px;
+    border-radius: 5px;
+}
+.center-login {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    vertical-align: center;
+}
+.btn {
+    font-family: consolas;
+}
 
+/*----------------Login-Sign up----------------*/

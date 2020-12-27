@@ -31,12 +31,13 @@
 	<div class="container">
 		<br>
 		<h1 class="text-black text-center">Password Recovery</h1>
-		<form name="myForm" action="" onsubmit="return validateForm()" method="POST">
+		<form name="myForm" action="" method="POST">
+			{{ csrf_field() }}
 			<div class="col-lg-8 m-auto d-block">
 				<div class="form-group">
 					<label for="user">Enter Your Email:</label>
-					<input type="email" name="email" id="email" class="form-control" required>
-					<span id="err_email" style="color:red;"></span>
+					<input type="email" name="email" id="email" class="form-control" value="{{old('email')}}">
+					<span id="err_email" style="color:red;">{{$errors->first('email')}}</span>
 				</div>
 				<input type="submit" name="verify" value="Send a OTP to Email" class="btn btn-success">
 				<br>

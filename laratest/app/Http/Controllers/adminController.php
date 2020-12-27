@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminRequest;
+use Validator;
 
 class adminController extends Controller
 {
@@ -13,8 +15,46 @@ class adminController extends Controller
 
     public function profile()
     {
-        $admin = ['image' => '/system_images/neymar1.jpg','name'=>'Md. Nur Islam','email'=>'nursm86@gmail.com','phone'=>'01622114901','address'=>'dhalpur Jatrabari Dhaka 1204','password'=>'12345678','sq'=>'me'];
+        $admin = ['id'=>1,'image' => '/system_images/neymar1.jpg','name'=>'Md. Nur Islam','email'=>'nursm86@gmail.com','phone'=>'01622114901','address'=>'dhalpur Jatrabari Dhaka 1204','password'=>'12345678','sq'=>'me'];
         return view('admin.profile',$admin);
+    }
+
+    public function edit($id, AdminRequest $req){
+        return redirect()->route('admin.profile');
+    }
+    
+    public function changepass($id, Request $req){
+        $validation = Validator::make($req->all(),[
+            'pass' => 'required',
+            'npass' => 'required | same:cpass| min:6',
+            'cpass' => 'required |min:6'
+        ]);
+
+        if($validation->fails()){
+            return back()
+                    ->with('errors',$validation->errors())
+                    ->withInput();
+        }
+        return redirect()->route('login.index');
+    }
+
+    public function changepropic($id, Request $req){
+        if($req->hasFile('propic')){
+            $file = $req->file('propic');
+            if(!($file->getClientOriginalExtension() == "jpg" || $file->getClientOriginalExtension() == "jpeg" || $file->getClientOriginalExtension() == "png")){
+                $req->session()->flash('errmsg','File Format '.$file->getClientOriginalExtension().' is not supported for profile pic!!!');
+                return redirect()->route('admin.profile');
+            }
+            else{
+                if($file->move('system_images',$req->session()->get('uname').".".$file->getClientOriginalExtension())){
+                    return redirect()->route('admin.profile');
+                }
+                else{
+                    $req->session()->flash('errmsg','Something Went Wrong!!!');
+                    return redirect()->route('admin.profile');
+                }
+            }    
+        }
     }
 
     public function adminlist()
@@ -93,6 +133,26 @@ class adminController extends Controller
     public function create()
     {
         return view('admin.createadmin');
+    }
+
+    public function created(AdminRequest $req){
+        if($req->hasFile('file')){
+            $file = $req->file('file');
+            if(!($file->getClientOriginalExtension() == "jpg" || $file->getClientOriginalExtension() == "jpeg" || $file->getClientOriginalExtension() == "png")){
+                $req->session()->flash('errmsg','File Format '.$file->getClientOriginalExtension().' is not supported for profile pic!!!');
+                return redirect()->route('admin.create');
+            }
+            else{
+                if($file->move('system_images',$req->username.".".$file->getClientOriginalExtension())){
+                    return redirect()->route('admin.adminlist');
+                }
+                else{
+                    $req->session()->flash('errmsg','Something Went Wrong!!!');
+                    return redirect()->route('admin.create');
+                }
+            }    
+        }
+        
     }
 
     public function donationlist()

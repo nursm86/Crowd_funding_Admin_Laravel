@@ -1,19 +1,74 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+Use App\Models\Campaign;
+Use App\Models\Admin;
+Use App\Models\Personal;
+Use App\Models\ContactAdmin;
+Use App\Models\Donation;
+Use App\Models\Organization;
+Use App\Models\Report;
+Use App\Models\Volunteer;
+use Validator;
 
 class homeController extends Controller
 {
     public function index(Request $req){
-        return view('home.index');
+        $campaigns = Campaign::getAllValidCampaigns();
+        $donations = Donation::getTop10Donations();
+        return view('home.index')
+                ->with('campaigns',$campaigns)
+                ->with('donations',$donations);
         
     }
     public function donate($id){
-        return view('home.donate');
+        $campaign = Campaign::getCampaignById($id);
+        return view('home.donate',$campaign);
+    }
+
+    public function donationadd($id,Request $req){
+        $validation = Validator::make($req->all(),[
+            'amount' => 'required'
+        ]);
+
+        Donation::addDonation($id,$req->session()->get('uid'),$req->amount);
+        if($validation->fails()){
+            return back()
+                    ->with('errors',$validation->errors())
+                    ->withInput();
+        }
+
+
+        return redirect()->route('home.index');
     }
     public function editCampaign($id){
-        return view('home.editCampaign');
+        $campaign = Campaign::getCampaignById($id);
+        return view('home.editCampaign',$campaign);
+    }
+
+    public function updateCampaign($id, Request $req){
+        $validation = Validator::make($req->all(),[
+            'title' => 'required',
+            'description'=>'required',
+            'ed'=>'required'
+        ]);
+        if($validation->fails()){
+            return back()
+                    ->with('errors',$validation->errors())
+                    ->withInput();
+        }
+        $campaign = Campaign::find($id);
+        $campaign->title = $req->title;
+        $campaign->description = $req->description;
+        $campaign->endDate = $req->ed;
+        $campaign->save();
+        return redirect()->route('home.editCampaign',$id);
+    }
+
+    public function delete($id){
+        $campaign =Campaign::find($id);
+        $campaign->delete();
+        return redirect()->route('home.index');
     }
 }

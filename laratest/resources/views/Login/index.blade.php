@@ -40,11 +40,13 @@
 					<input type="text" name="username" id="user" class="form-control" value="{{old('username')}}">
 					<span id="err_user" style="color:red;">{{$errors->first('username')}}</span>
 				</div>
+
 				<div class="form-group">
 					<label for="password">Password</label>
-					<input type="password" name="password" id="pass" class="form-control" value="{{old('password')}}">
-					<span  id="err_pass" style="color:red;">{{$errors->first('password')}}</span>
+					<input type="password" name="pass" id="pass" class="form-control" value="{{old('pass')}}">
+					<span  id="err_pass" style="color:red;">{{$errors->first('pass')}}</span>
 				</div>
+
 				<div class="form-group">
 					<input type="checkbox"  name="rememberme"> Remember Me<br>
 					<span style="color:red;">{{session('errmsg')}}</span>

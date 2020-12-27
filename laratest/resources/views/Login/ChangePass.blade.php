@@ -33,21 +33,22 @@
         <h1 class="text-black text-center">Change Password</h1>
 
 		<form name="myForm" action="" method="POST">
+			{{ csrf_field() }}
 			<div class="col-lg-8 m-auto d-block">
 				<div class="form-group">
 					<label for="user">Enter OTP from your Email:</label>
-					<input type="text" name="otp" id="otp" class="form-control" required>
-					<span id="err_email" style="color:red;"></span>
+					<input type="text" name="otp" id="otp" class="form-control" value="{{old('otp')}}">
+					<span id="err_email" style="color:red;">{{$errors->first('otp')}}</span>
                 </div>
                 <div class="form-group">
 					<label for="user">Enter New Password :</label>
-					<input type="password" name="npass" id="npass" class="form-control" required>
-					<span id="err_email" style="color:red;"></span>
+					<input type="password" name="npass" id="npass" class="form-control" value="{{old('npass')}}">
+					<span id="err_email" style="color:red;">{{$errors->first('npass')}}</span>
                 </div>
                 <div class="form-group">
 					<label for="user">Confirm New Password :</label>
-					<input type="password" name="cpass" id="cpass" class="form-control" required>
-					<span id="err_email" style="color:red;"></span>
+					<input type="password" name="cpass" id="cpass" class="form-control" value="{{old('cpass')}}">
+					<span id="err_email" style="color:red;">{{$errors->first('cpass')}}</span>
 				</div>
 				<input type="submit" name="verify" value="Change Password" class="btn btn-success">
 				<br>

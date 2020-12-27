@@ -25,18 +25,25 @@ Route::get('/home',[homeController::class,'index'])->name('home.index');
 Route::get('/login',[loginController::class,'index'])->name('login.index');
 Route::post('/login',[loginController::class,'login']);
 Route::get('/forgotpassword',[loginController::class,'forgotpassword'])->name('login.forgotpassword');
+Route::post('/forgotpassword',[loginController::class,'sendEmail']);
 Route::get('/changepassword',[loginController::class,'changepassword'])->name('login.changepassword');
+Route::post('/changepassword',[loginController::class,'resetpassword']);
 Route::get('/logout',[logoutController::class,'index'])->name('logout.index');
 
 Route::group(['middleware'=>['sess']],function(){
 
     Route::get('home/donate/{id}',[homeController::class,'donate'])->name('home.donate');
+    Route::post('home/donate/{id}',[homeController::class,'donationadd']);
     Route::get('home/delete/{id}',[homeController::class,'delete'])->name('home.delete');
     Route::get('home/editCampaign/{id}',[homeController::class,'editCampaign'])->name('home.editCampaign');
+    Route::post('home/editCampaign/{id}',[homeController::class,'updateCampaign']);
 
     Route::group(['middleware'=>['utype']],function(){
         Route::get('/admin',[adminController::class,'index'])->name('admin.index');
         Route::get('/admin/profile',[adminController::class,'profile'])->name('admin.profile');
+        Route::post('/admin/edit/{id}',[adminController::class,'edit'])->name('admin.edit');
+        Route::post('/admin/changepass/{id}',[adminController::class,'changepass'])->name('admin.changepass');
+        Route::post('/admin/changepropic/{id}',[adminController::class,'changepropic'])->name('admin.changepropic');
         Route::get('/admin/adminlist',[adminController::class,'adminlist'])->name('admin.adminlist');
 
         Route::get('/admin/personaluserlist',[adminController::class,'personaluserlist'])->name('admin.personaluserlist');
@@ -53,6 +60,7 @@ Route::group(['middleware'=>['sess']],function(){
         Route::get('/admin/volunteeredit/{id}',[adminController::class,'volunteeredit'])->name('admin.volunteeredit');
 
         Route::get('/admin/create',[adminController::class,'create'])->name('admin.create');
+        Route::post('/admin/create',[adminController::class,'created']);
         Route::get('/admin/donationlist',[adminController::class,'donationlist'])->name('admin.donationlist');
         Route::get('/admin/releasedcampaign',[adminController::class,'releasedcampaign'])->name('admin.releasedcampaign');
 

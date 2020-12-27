@@ -13,7 +13,7 @@
 
         <div class="col-md-8 box">
             <h1 class="text-white bg-dark text-center">
-                Please give us some money
+                {{$title}}
             </h1>
             <table class="table">
 
@@ -21,52 +21,50 @@
                     <tr>
                         <td class="tdattribute">User Name</td>
                         <td>:</td>
-                        <td>nursm</td>
+                        <td>{{$username}}</td>
                     </tr>
 
                     <tr>
                         <td class="tdattribute">Email</td>
                         <td>:</td>
-                        <td>nursm@gmail.com</td>
+                        <td>{{$email}}</td>
                     </tr>
 
                     <tr>
 
                         <td class="tdattribute">Requested Fund</td>
                         <td>:</td>
-                        <td>100</td>
+                        <td>{{$tf}}</td>
 
                     </tr>
                     <tr>
                         <td class="tdattribute">Raised Fund</td>
                         <td>:</td>
-                        <td name = "rf">200</td>
+                        <td name = "rf">{{$rf}}</td>
 
                     </tr>
                     <tr>
                         <td class="tdattribute">Publised Date</td>
                         <td>:</td>
-                        <td>5/12/2020</td>
+                        <td>{{$pd}}</td>
 
                     </tr>
                     <tr>
                         <td class="tdattribute">End Date</td>
                         <td>:</td>
-                        <td>10/12/2020</td>
+                        <td>{{$ed}}</td>
 
                     </tr>
                     <tr>
                         <td class="tdattribute">Description</td>
                         <td>:</td>
-                        <td>Please Donate us</td>
+                        <td>{{$description}}</td>
                     </tr>
                     <tr>
                         <td class="tdattribute">Status</td>
                         <td>:</td>
                         <td>
-                            Valid
-                            
-                            
+                            Valid 
                         </td>
 
                     </tr>
@@ -77,8 +75,10 @@
             </div>
             <div class="form-group">
                 <form method="post">
-                    <input type="number" name="donate" placeholder="Donation amount" min="1" required>
+                    {{ csrf_field() }}
+                    <input type="number" name="amount" placeholder="Donation amount" min="1" value="{{old('amount')}}">
                     <input type="submit" name="submit" value="Donate" class="btn btn-success">
+                    <span  id="err" style="color:red;">{{$errors->first('amount')}}</span>
                 </form>
             </div>
         </div>

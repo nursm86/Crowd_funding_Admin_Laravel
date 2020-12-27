@@ -25,21 +25,23 @@
         <div class="container text-center">
             <h1 class="title">Donation</h1>
             <div class="row text-center">    
-                <!--  
-                    campaigns.forEach(function(std){ %>
-                    <div class="col-md-16 services">
-                        <div class="card-product col-md-8">
-                            <a href="/home/donate">
-                                <img class="card-image" src="std.image%>"></img>
-                            </a>
-                            <div class="btn btn-warning"><span ><b>Target : std.tf%>$</b></span></div>
-                            <div><span ><b>Raised : std.rf%>$</b></span></div>
-                            <div class="add-to-cart"><a class="btn btn-success" style="width:85px;font-family:consolas;margin-top:5px;" href="/home/donate/std.id%>">Donate</a><a class="btn btn-warning" style="width:85px;font-family:consolas;margin-top:5px;" href="/home/editcampaign/std.id%>" <% if(!(user.type == 0 || user.id == std.uid)){%> hidden <%}%>>Edit</a></span></div>
+                    @foreach($campaigns as $campaign)
+                        <div class="col-md-16 services">
+                            <div class="card-product col-md-8">
+                                <a href={{route('home.donate',$campaign['id'])}}>
+                                    <img class="card-image" src={{$campaign['image']}}>
+                                </a>
+                                <div class="btn btn-warning"><span ><b>Target : {{$campaign['tf']}}$</b></span></div>
+                                <div><span ><b>Raised : {{$campaign['rf']}}$</b></span></div>
+                                
+                                <div class="add-to-cart"><a class="btn btn-success" style="width:85px;font-family:consolas;margin-top:5px;" href="{{route('home.donate',$campaign['id'])}}">Donate</a>
+                                    @if(session()->has('utype'))
+                                        <a class="btn btn-warning" style="width:85px;font-family:consolas;margin-top:5px;" href="{{route('home.editCampaign',$campaign['id'])}}" @if(!(session('utype') == 0 || session('uid') == $campaign['uid'])) hidden @endif>Edit</a>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-                    </div> 
-                
-                    }); 
-                 -->
+                    @endforeach
             </div>
            <!-- <button type="button" class="btn btn-primary">All Services</button>-->
         </div>
@@ -63,7 +65,14 @@
                 </thead>
                 <tbody id = "suggestion">
                     <div class="col-md-8">
-                       
+                       @foreach ($donations as $donation)
+                           <tr>
+                                <td>{{$donation['username']}}</td>
+                                <td>{{$donation['title']}}</td>
+                                <td>{{$donation['amount']}}</td>
+                                <td>{{$donation['donationDate']}}</td>
+                           </tr>
+                       @endforeach
                 </tbody>
             </table></center>
             </div>
