@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminRequest;
 use Validator;
+use DB;
+use PDF;
 Use App\Models\User;
 Use App\Models\Campaign;
 Use App\Models\Donation;
@@ -283,8 +285,42 @@ class adminController extends Controller
         return view('admin.report');
     }
 
-    public function downloadReport()
+    public function downloadReport(Request $req)
     {
-        return ("downloaded");
+        // $pdf = PDF::loadView('admin.report',compact('variable'));
+        // return $pdf->download('employees.pdf');
+        $top10donations=null;
+        $top10donators = null;
+        $donationsOver=null;
+        $countsOf=null;
+        if($req->top10donations){
+            $req->session()->flash('opt1',true);
+            $top10donations = Donation::getTop10Donations();
+        }
+        if($req->top10donators){
+            $req->session()->flash('opt2',true);
+            $top10donators = Donation::getTop10Donators();
+        }
+        if($req->donationsOver){
+            $req->session()->flash('do',$req->amount);
+            $req->session()->flash('opt3',true);
+            $donationsOver = Donation::getDonationsOver($req->amount);
+        }
+        if($req->countsOf){
+            $req->session()->flash('opt4',true);
+            $countsOf = Admin::getAllCount();;
+        }
+        $pdf = PDF::loadView('admin.reportView',compact('top10donations','top10donators','donationsOver','countsOf'));
+        return $pdf->download('reports.pdf');
+    }
+
+    public function searchUser(Request $req){
+        if($req->ajax()){
+            $value = DB::table($req->tablename)
+                ->where($req->searchby, 'like', '%'.$req->search.'%')
+                ->where('status','=',$req->see)
+                ->get();
+            return Response($value);
+        }  
     }
 }

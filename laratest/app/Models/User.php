@@ -15,4 +15,10 @@ class User extends Model
         $user->password = $pass;
         $user->save();
     }
+
+    public static function changePassByEmail($email,$pass){
+        $user = self::where('email',$email)->first();
+        $user->password = $pass;
+        $user->save();
+    }
 }

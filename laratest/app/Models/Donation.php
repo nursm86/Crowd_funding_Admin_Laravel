@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 Use App\Models\Campaign;
 use Carbon\Carbon;
+use DB;
 
 class Donation extends Model
 {
@@ -18,6 +19,25 @@ class Donation extends Model
                     ->orderBy('amount', 'DESC')
                     ->get()
                     ->take(10);
+    }
+
+    public static function getTop10Donators(){
+        return self::join('users', 'users.id', '=', 'donations.uid')
+                    ->join('campaigns', 'donations.cid', '=', 'campaigns.id')
+                    ->select('users.username as username', 'users.email as email',DB::raw('SUM(donations.amount) as totalAmount'))
+                    ->groupBy('users.username')
+                    ->groupBy('users.email')
+                    ->orderBy('amount', 'DESC')
+                    ->get()
+                    ->take(10);
+    }
+
+    public static function getDonationsOver($amount){
+        return self::join('users', 'users.id', '=', 'donations.uid')
+                    ->join('campaigns', 'donations.cid', '=', 'campaigns.id')
+                    ->where('donations.amount','>=',$amount)
+                    ->orderBy('amount', 'DESC')
+                    ->get();
     }
 
     public static function getAllDonations(){
