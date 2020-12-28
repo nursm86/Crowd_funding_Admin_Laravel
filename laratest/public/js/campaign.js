@@ -1,19 +1,23 @@
 $(document).ready(function(){
+	var token = $("#token").val();
 	$('#search').keyup(function(){
 		var search = $("#search").val();
 		var searchby = $("#searchby").val();
 		var see = $('#see').val();
 		$.ajax({
-			url: '/admin/searchcampaign',
+			url: '/admin/searchCampaign',
 			method: 'post',
 			datatype : 'json',
+			headers: {
+				'X-CSRF-Token': token 
+		   	},
 			data : {'see' : see,
 					'search':search,
 					'searchby':searchby},
 			success:function(response){
 				var tableBody="<thead><td>User Name</td><td>Name</td><td>User Email</td><td>Campaign Title</td><td>Requested Fund</td><td>Raised Fund</td><td>Published Date</td><td>End Date</td><td>Status</td><td></td></thead>";
-				if(response.user != 'error'){
-					response.user.forEach(element => {
+				if(response != 'error'){
+					response.forEach(element => {
 						var tableRow="";
 						tableRow+="<td>"+element.username+"</td>";
 						tableRow+="<td>"+element.email+"</td>";
@@ -50,16 +54,19 @@ $(document).ready(function(){
 		var searchby = $("#searchby").val();
 		var see = $('#see').val();
 		$.ajax({
-			url: '/admin/searchcampaign',
+			url: '/admin/searchCampaign',
 			method: 'post',
 			datatype : 'json',
+			headers: {
+				'X-CSRF-Token': token 
+		   	},
 			data : {'see' : see,
 					'search':search,
 					'searchby':searchby},
 			success:function(response){
 				var tableBody="<thead><td>User Name</td><td>Name</td><td>User Email</td><td>Campaign Title</td><td>Requested Fund</td><td>Raised Fund</td><td>Published Date</td><td>End Date</td><td>Status</td><td></td></thead>";
-				if(response.user != 'error'){
-					response.user.forEach(element => {
+				if(response != 'error'){
+					response.forEach(element => {
 						var tableRow="";
 						tableRow+="<td>"+element.username+"</td>";
 						tableRow+="<td>"+element.email+"</td>";

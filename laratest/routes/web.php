@@ -82,7 +82,9 @@ Route::group(['middleware'=>['sess']],function(){
         Route::get('/admin/generateReport',[adminController::class,'generateReport'])->name('admin.generateReport');
         Route::post('/admin/generateReport',[adminController::class,'downloadReport']);
 
-        route::post('/admin/search',[adminController::class,'searchUser'])->name('admin.searchUser');
+        route::post('/admin/search',[adminController::class,'searchUser']);
+        route::post('/admin/searchCampaign',[adminController::class,'searchCampaign']);
+        route::post('/admin/get',[adminController::class,'get']);
     });
 
 });

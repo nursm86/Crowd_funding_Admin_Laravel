@@ -11,10 +11,11 @@
         <div class="col-md-2">
             <div class="form-group">
                 <select class="form-control" name="see" id="see">
-                        <option value="0" selected>All</option>
-                        <option value="3">InValid</option>
+                        <option value="*" selected>All</option>
+                        <option value="0">InValid</option>
                         <option value="1" >Valid</option>
                         <option value="2" >Blocked</option>
+                        <option value="3" >Complete</option>
                 </select>
             </div>
         </div>
@@ -31,6 +32,7 @@
             </div>
         </div>
         <div class="col-md-8 donor">
+            <input type="hidden" id="token" name="_token" value={{ csrf_token() }}>
         <input type="text" name="search" id="search" placeholder="Search Campaings">
         </div>
     </div><br>
@@ -83,6 +85,6 @@
             </div>
 </div>
 
-<script type="text/javascript" src = "/assets/js/campaign.js"></script>
+<script type="text/javascript" src = "/js/campaign.js"></script>
 
 @endsection

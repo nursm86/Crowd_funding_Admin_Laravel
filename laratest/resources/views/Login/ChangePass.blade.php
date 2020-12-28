@@ -24,6 +24,7 @@
 				<ul class="navbar-nav ml-auto" align="right">
 					<li class="nav-item active">
 					<a class="nav-link" href="{{route('home.index')}}">Home </a>
+					<a class="nav-link" href="{{route('login.index')}}">Back</a>
 				</ul>
 			</div>
 		</nav>

@@ -1,38 +1,14 @@
 $(document).ready(function(){
-	$('#search').keyup(function(){
-		var search = $("#search").val();
-		var searchby = $("#searchby").val();
-		$.ajax({
-			url: '/admin/adminsearch',
-			method: 'post',
-			datatype : 'json',
-			data : {'search':search,
-					'searchby':searchby},
-			success:function(response){
-				var tableBody="<tr><td>User Name</td><td>Name</td><td>Email</td><td>Address</td><td>Phone</td><td>Status</td><td></td></tr>";
-				if(response.user != 'error'){
-					response.user.forEach(element => {
-						var tableRow="";
-						tableRow+="<td>"+element.username+"</td>";
-						tableRow+="<td>"+element.name+"</td>";
-						tableRow+="<td>"+element.email+"</td>";
-						tableRow+="<td>"+element.address+"</td>";
-						tableRow+="<td>"+element.phone+"</td>";
-						tableRow+="<td>Valid</td>";
-						
-						tableRow += "<td><a href='/admin/personalUseredit/"+element.id+"' class='btn btn-warning'>View</a>";
-						tableBody=tableBody+"<tr>"+tableRow+"</tr>";
-					});
-					$('table').html(tableBody);
-				}else{
-					var tableBody="<tr><td>User Name</td><td>Name</td><td>Email</td><td>Address</td><td>Phone</td><td>Status</td><td></td></tr>";
-					$("table").html(tableBody);
-				}
-			},
-			error:function(response){
-				
-			}
-		});
+	var token = $("#token").val();
+	$("form").submit(function(e){
+		if($("#err_uname").html() !=""){
+			$('#uname').focus();
+			e.preventDefault(e);
+		}
+		else if($("#err_email").html() !=""){
+			$('#email').focus();
+			e.preventDefault(e);
+		}
 	});
 	$('#uname').focus(function(){
 		var erruname = $("#err_uname").val();
@@ -46,10 +22,14 @@ $(document).ready(function(){
 			url: '/admin/get',
 			method: 'post',
 			datatype : 'json',
+			headers: {
+				'X-CSRF-Token': token 
+		   	},
 			data : {'field':'username',
 					'val': uname},
 			success:function(response){
-				if(response.flag){
+				console.log(response);
+				if(response){
 					$('#err_uname').html("User Name is Already Taken Please select another one!!!");
 				}
 			},
@@ -71,10 +51,13 @@ $(document).ready(function(){
 			url: '/admin/get',
 			method: 'post',
 			datatype : 'json',
+			headers: {
+				'X-CSRF-Token': token 
+		   	},
 			data : {'field':'email',
 					'val': email},
 			success:function(response){
-				if(response.flag){
+				if(response){
 					$('#err_email').html("Email is Already in Use Plz select another one!!!");
 				}
 			},

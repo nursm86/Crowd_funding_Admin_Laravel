@@ -22,7 +22,7 @@
                         <label>Phone: {{$contactno}}</label>
                     </div>
                     <div class="form-group">
-                        <label>Address: {{$Address}}</label>
+                        <label>Address: {{$address}}</label>
                     </div>
                     <div class="form-group">
                         <label>Status: 

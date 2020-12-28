@@ -7,7 +7,7 @@
     <h1 class="text-white bg-dark text-center">
     volunteer's
     </h1><br>
-    <input value="volunteer" id="tablename" hidden>
+    <input value="volunteers" id="tablename" hidden>
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
@@ -27,11 +27,12 @@
                         <option value="name" >Name</option>
                         <option value="email" >Email</option>
                         <option value="address" >Address</option>
-                        <option value="phone" >contact no</option>
+                        <option value="contactno" >contact no</option>
                 </select>
             </div>
         </div>
         <div class="col-md-8 donor">
+            <input type="hidden" id="token" name="_token" value={{ csrf_token() }}>
         <input type="text" name="search" id="search" placeholder="Search Personal Users">
         </div>
     </div><br>
@@ -78,6 +79,6 @@
             </div>
 </div>
 
-<script type="text/javascript" src = "/assets/js/main.js"></script>
+<script type="text/javascript" src = "/js/main.js"></script>
 
 @endsection

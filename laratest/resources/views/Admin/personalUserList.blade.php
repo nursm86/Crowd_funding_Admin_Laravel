@@ -7,7 +7,7 @@
     <h1 class="text-white bg-dark text-center">
     Personal users
     </h1><br>
-    <input value="personal" id="tablename" hidden>
+    <input value="personals" id="tablename" hidden>
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
@@ -26,11 +26,12 @@
                         <option value="name" >Name</option>
                         <option value="email" >Email</option>
                         <option value="address" >Address</option>
-                        <option value="phone" >contact no</option>
+                        <option value="contactno" >contact no</option>
                 </select>
             </div>
         </div>
         <div class="col-md-8 donor">
+            <input type="hidden" id="token" name="_token" value={{ csrf_token() }}>
         <input type="text" name="search" id="search" placeholder="Search Personal Users">
         </div>
     </div><br>
@@ -56,7 +57,7 @@
                                 <td>{{$user['username']}}</td>
                                 <td>{{$user['name']}}</td>
                                 <td>{{$user['email']}}</td>
-                                <td>{{$user['Address']}}</td>
+                                <td>{{$user['address']}}</td>
                                 <td>{{$user['contactno']}}</td>
                                 <td>
                                     @if($user['status'] == 1)

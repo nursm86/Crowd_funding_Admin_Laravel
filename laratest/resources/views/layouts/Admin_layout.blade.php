@@ -45,7 +45,7 @@
     <button id="sidebarCollapse" class="btn navbar-btn">
     <i class="fas fa-lg fa-bars"></i>
     </button>
-    <a class="navbar-brand" href="{{route('home.index')}}">
+    <a class="navbar-brand" href="{{route('admin.index')}}">
     <img src="/system_images/mlogo.png" id="logo" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

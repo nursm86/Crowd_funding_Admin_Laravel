@@ -12,7 +12,7 @@
 					<span></span>
 				</div>
         <form action="" method="post" enctype="multipart/form-data">
-            {{ csrf_field() }}
+            <input type="hidden" id="token" name="_token" value={{ csrf_token() }}>
             <div class="form-group">
                 <label>Name:</label>
                 <input type="text" class="form-control" id ="name" name="name" value="{{old('name')}}">
@@ -62,10 +62,10 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" name="create" value="Create Admin">
+                <input type="submit" class="btn btn-primary" id="create" name="create" value="Create Admin">
             </div>
         </form>
 
-        <script type="text/javascript" src = "/assets/js/admin.js"></script>
+        <script type="text/javascript" src = "/js/admin.js"></script>
 
 @endsection

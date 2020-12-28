@@ -314,13 +314,69 @@ class adminController extends Controller
         return $pdf->download('reports.pdf');
     }
 
+    public function searchCampaign(Request $req){
+        if($req->ajax()){
+            $campaign = Campaign::getCampaignBySearch($req);
+            return response()->json($campaign);
+        }
+        else{
+            return Redirect()->Back();
+        }
+    }
+
     public function searchUser(Request $req){
         if($req->ajax()){
-            $value = DB::table($req->tablename)
-                ->where($req->searchby, 'like', '%'.$req->search.'%')
-                ->where('status','=',$req->see)
-                ->get();
-            return Response($value);
-        }  
+            if($req->see == 0){
+                if($req->searchby == "username" || $req->searchby == "email"){
+                    $user = DB::table($req->tablename)
+                    ->join('users as u', 'u.id', '=', $req->tablename.'.uid')
+                    ->where('u.'.$req->searchby, 'LIKE', '%'.$req->search.'%')
+                    ->get();
+                }
+                else{
+                    $user = DB::table($req->tablename)
+                    ->join('users as u', 'u.id', '=', $req->tablename.'.uid')
+                    ->where($req->tablename.'.'.$req->searchby, 'LIKE', '%'.$req->search.'%')
+                    ->get();
+                }
+            }
+            else{
+                if($req->searchby == "username" || $req->searchby == "email"){
+                    $user = DB::table($req->tablename)
+                    ->join('users as u', 'u.id', '=', $req->tablename.'.uid')
+                    ->where('u.'.$req->searchby, 'LIKE', '%'.$req->search.'%')
+                    ->where('u.status',$req->see)
+                    ->get();
+                }
+                else{
+                    $user = DB::table($req->tablename)
+                    ->join('users as u', 'u.id', '=', $req->tablename.'.uid')
+                    ->where($req->tablename.'.'.$req->searchby, 'LIKE', '%'.$req->search.'%')
+                    ->where('u.status',$req->see)
+                    ->get();
+                }
+            }
+            return response()->json($user);
+        }
+        else{
+            return Redirect()->Back();
+        }
+    }
+
+    public function get(Request $req){
+        if($req->ajax()){
+            $result = User::where($req->field,$req->val)->first();
+            if($result != ""){
+                $flag = true;
+                return response()->json($flag);
+            }
+            else{
+                $flag = false;
+                return response()->json($flag);
+            }
+        }
+        else{
+            return Redirect()->Back();
+        }
     }
 }

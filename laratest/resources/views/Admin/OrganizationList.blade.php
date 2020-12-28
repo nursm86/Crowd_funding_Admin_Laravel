@@ -7,7 +7,7 @@
     <h1 class="text-white bg-dark text-center">
     Organizational users
     </h1><br>
-    <input value="organization" id="tablename" hidden>
+    <input value="organizations" id="tablename" hidden>
     <div class="row">
         <div class="col-md-2">
             <div class="form-group">
@@ -27,11 +27,12 @@
                         <option value="name" >Name</option>
                         <option value="email" >Email</option>
                         <option value="address" >Address</option>
-                        <option value="phone" >contact no</option>
+                        <option value="contactno" >contact no</option>
                 </select>
             </div>
         </div>
         <div class="col-md-8 donor">
+            <input type="hidden" id="token" name="_token" value={{ csrf_token() }}>
         <input type="text" name="search" id="search" placeholder="Search Personal Users">
         </div>
     </div><br>
@@ -57,7 +58,7 @@
                                 <td>{{$organization['username']}}</td>
                                 <td>{{$organization['name']}}</td>
                                 <td>{{$organization['email']}}</td>
-                                <td>{{$organization['Address']}}</td>
+                                <td>{{$organization['address']}}</td>
                                 <td>{{$organization['contactno']}}</td>
                                 <td>
                                     @if($organization['status'] == 1)
@@ -78,6 +79,6 @@
             </div>
 </div>
 
-<script type="text/javascript" src = "/assets/js/main.js"></script>
+<script type="text/javascript" src = "/js/main.js"></script>
 
 @endsection
