@@ -10,7 +10,10 @@ use Validator;
 
 class loginController extends Controller
 {
-    public function index(){
+    public function index(Request $req){
+        if($req->session()->has('uname')){
+            return redirect()->route('home.index');
+        }
         return view('login.index');
     }
 
