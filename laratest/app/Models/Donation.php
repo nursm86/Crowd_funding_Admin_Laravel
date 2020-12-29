@@ -27,7 +27,7 @@ class Donation extends Model
                     ->select('users.username as username', 'users.email as email',DB::raw('SUM(donations.amount) as totalAmount'))
                     ->groupBy('users.username')
                     ->groupBy('users.email')
-                    ->orderBy('amount', 'DESC')
+                    ->orderBy('totalAmount', 'DESC')
                     ->get()
                     ->take(10);
     }

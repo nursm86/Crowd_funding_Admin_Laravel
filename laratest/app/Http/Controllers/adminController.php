@@ -324,6 +324,7 @@ class adminController extends Controller
         }
         $pdf = PDF::loadView('admin.reportView',compact('top10donations','top10donators','donationsOver','countsOf'));
         return $pdf->download('reports.pdf');
+        //return view('admin.reportView',compact('top10donations','top10donators','donationsOver','countsOf'));
     }
 
     public function searchCampaign(Request $req){
