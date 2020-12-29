@@ -47,6 +47,7 @@ class Admin extends Model
         $user->image = $filename;
         $user->type = 0;
         $user->status = 1;
+        $user->provider_id =0;
         $user->save();
 
         $admin = new Admin();

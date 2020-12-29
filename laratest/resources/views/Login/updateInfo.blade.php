@@ -36,39 +36,35 @@
 	</section>
 	<div class="container">
 		<br>
-		<h1 class="text-black text-center">Login</h1>
+		<h1 class="text-black text-center">Update Info</h1>
 		<center><h2 style="color: red;"></h2></center>
 		<form name="myForm" action="" method="POST">
 			{{ csrf_field() }}
 			<div class="col-lg-8 m-auto d-block">
 				<div class="form-group">
-					<label for="user">Username:</label>
-					<input type="text" name="username" id="user" class="form-control" value="{{old('username')}}">
-					<span id="err_user" style="color:red;">{{$errors->first('username')}}</span>
+					<label for="phone">Contact Number:</label>
+					<input type="text" name="phone" id="phone" class="form-control" value="{{old('phone')}}">
+					<span id="err_user" style="color:red;">{{$errors->first('phone')}}</span>
 				</div>
 
 				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" name="pass" id="pass" class="form-control" value="{{old('pass')}}">
-					<span  id="err_pass" style="color:red;">{{$errors->first('pass')}}</span>
+					<label for="address">Address</label>
+					<input type="text" name="address" id="address" class="form-control" value="{{old('address')}}">
+					<span  id="err_pass" style="color:red;">{{$errors->first('address')}}</span>
 				</div>
 
-				<div class="form-group">
-					<input type="checkbox"  name="rememberme"> Remember Me<br>
-					<span style="color:red;">{{session('errmsg')}}</span>
-				</div>
-				<div class="form-group">
-				Forgot password?? <a href="{{route('login.forgotpassword')}}">Click here</a>
-				</div>
+                <div class="form-group">
+					<label for="sq">Sequrity Question</label>
+					<input type="text" placeholder="Who is Your Best Friend" name="sq" id="sq" class="form-control" value="{{old('sq')}}">
+					<span  id="err_pass" style="color:red;">{{$errors->first('sq')}}</span>
+                </div>
+
 				<div class="form-group">
 					
 				</div>
-					<input type="submit" name="login" value="Login" class="btn btn-success">
+					<input type="submit" name="updateInfo" value="Update Info" class="btn btn-success">
 				<br>
 				<br>
-				<a href="{{route('login.facebook')}}" name="loginwithFacebook" class="btn btn-primary btn-block">Login With Facebook</a>
-				<a href="{{route('login.github')}}" name="loginwithGithub" class="btn btn-secondary btn-block">Login With Github</a>
-				<a href="{{route('login.google')}}" name="loginwithGoogle" class="btn btn-danger btn-block">Login With Google</a>
 			</div>
 		</form>
 	</div>

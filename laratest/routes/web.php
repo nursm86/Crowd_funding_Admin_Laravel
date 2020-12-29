@@ -20,9 +20,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home',[homeController::class,'index'])->name('home.index');
+Route::get('/login/google',[loginController::class,'redirectToGoogle'])->name('login.google');
+Route::get('/login/google/callback',[loginController::class,'handleGoogleCallback']);
 
+Route::get('/login/facebook',[loginController::class,'redirectToFacebook'])->name('login.facebook');
+Route::get('/login/facebook/callback',[loginController::class,'handleFacebookCallback']);
+
+Route::get('/login/github',[loginController::class,'redirectToGithub'])->name('login.github');
+Route::get('/login/github/callback',[loginController::class,'handleGithubCallback']);
+
+Route::get('/home',[homeController::class,'index'])->name('home.index');
 Route::get('/login',[loginController::class,'index'])->name('login.index');
+Route::get('/login/updateInfo',[loginController::class,'updateInfo'])->name('login.updateInfo');
+Route::post('/login/updateInfo',[loginController::class,'setInfo']);
 Route::post('/login',[loginController::class,'login']);
 Route::get('/forgotpassword',[loginController::class,'forgotpassword'])->name('login.forgotpassword');
 Route::post('/forgotpassword',[loginController::class,'sendEmail']);
