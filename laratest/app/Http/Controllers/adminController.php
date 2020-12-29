@@ -88,10 +88,27 @@ class adminController extends Controller
         }
     }
 
-    public function adminlist()
+    public function adminlist(Request $req)
     {
-        $admins = Admin::getallAdmins();
-        return view('admin.adminlist')->with('admins',$admins);
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'http://localhost:8000/admin/adminlist');
+        if($response->getStatusCode() == 200){
+            $data =json_decode($response->getBody(),true);
+            $admins = $data['user'];
+            $req->session()->flash('print',true);
+            return view('admin.adminlist')->with('admins',$admins);
+        }
+        else{
+            $admins = null;
+            return view('admin.adminlist')->with('admins',$admins);
+        }
+        //echo ; // 200
+        //echo $response->getHeaderLine('content-type'); // 'application/json; charset=utf8'
+        //echo $response->getBody();
+        //$value = $response->getBody()->getContents();; // '{"id": 1420053, "name": "guzzle", ...}'
+        //$admins = Admin::getallAdmins();
+        //$data = (string)$response->getBody();
+        //$data = (string) $response->getBody();
     }
 
     public function personaluserlist()

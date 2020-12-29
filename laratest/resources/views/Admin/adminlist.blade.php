@@ -8,7 +8,8 @@
     Admin's
     </h1><br>
 
-        <div class="row ">
+    @if(session()->has('print'))
+    <div class="row ">
 
         <table class="table" id="myTable" name= "table">
             <thead>
@@ -37,6 +38,11 @@
         </table>
         </div>
 </div>
+    @else
+        <div class="center">
+            <h1 style="color:red">No Data Found!!!Maybe Remote Server isn't working</h1>
+        </div>
+    @endif
 
 <script type="text/javascript" src = "/js/admin.js"></script>
 @endsection
