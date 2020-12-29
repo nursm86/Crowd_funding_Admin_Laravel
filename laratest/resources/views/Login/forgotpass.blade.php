@@ -38,7 +38,7 @@
 				<div class="form-group">
 					<label for="user">Enter Your Email:</label>
 					<input type="email" name="email" id="email" class="form-control" value="{{old('email')}}">
-					<span id="err_email" style="color:red;">{{$errors->first('email')}}</span>
+					<span id="err_email" style="color:red;">{{$errors->first('email')}}{{session('errmsg')}}</span>
 				</div>
 				<input type="submit" name="verify" value="Send a OTP to Email" class="btn btn-success">
 				<br>

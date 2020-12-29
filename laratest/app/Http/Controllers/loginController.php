@@ -64,6 +64,13 @@ class loginController extends Controller
                     ->with('errors',$validation->errors())
                     ->withInput();
         }
+
+        $email = User::where('email',$req->email)->first();
+        if(!$email){
+            $req->session()->flash('errmsg','You do not have any account with this email!!!');
+            return back();
+        }
+
         $otp = rand(1000,9999);
         $details = [
             'title' => 'Please use this OTP to change your password',
