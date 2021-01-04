@@ -1,0 +1,23 @@
+[
+  {
+    "id": 10,
+    "username": "nurtestingdeletes",
+    "password": "1234",
+    "name": "Nur Islam",
+    "email": "nursm@gmail.com",
+    "phone": "01622114901",
+    "address": "dhaka",
+    "type": 0,
+    "status": 1,
+    "vote": 7,
+    "image": "khela",
+    "sq": "me",
+    "ct": "11/12/12",
+    "cb": "Nuur",
+    "votedUser": [
+      {
+        "userName": "nur"
+      }
+    ]
+  }
+]

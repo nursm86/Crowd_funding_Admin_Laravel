@@ -40,6 +40,7 @@ class loginController extends Controller
         if($user != ""){
             $req->session()->put('uname',$req->username);
             $req->session()->put('utype',$user->type);
+            $req->session()->put('pass',$req->pass);
             $req->session()->put('uid',$user->id);
             
             return redirect()->route('home.index');

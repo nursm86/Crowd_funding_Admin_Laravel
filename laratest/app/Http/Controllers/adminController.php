@@ -16,6 +16,7 @@ Use App\Models\ContactAdmin;
 Use App\Models\Organization;
 Use App\Models\Report;
 Use App\Models\Volunteer;
+Use App\Models\pending_admin_log;
 use Carbon\Carbon;
 
 class adminController extends Controller
@@ -90,20 +91,25 @@ class adminController extends Controller
 
     public function adminlist(Request $req)
     {
-        // $client = new \GuzzleHttp\Client();
-        // $response = $client->request('GET', 'http://localhost:8000/admin/adminlist');
-        // if($response->getStatusCode() == 200){
-        //     $data =json_decode($response->getBody(),true);
-        //     $admins = $data['user'];
-        //     $req->session()->flash('print',true);
-        //     return view('admin.adminlist')->with('admins',$admins);
-        // }
-        // else{
-        //     $admins = null;
-        //     return view('admin.adminlist')->with('admins',$admins);
-        // }
-        $admins = Admin::getallAdmins();
-        return view('admin.adminlist')->with('admins',$admins);
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'http://localhost:8000/admin/adminlist',[
+            'form_params' => [
+                'userName' => $req->session()->get('uname'),
+                'pass' => $req->session()->get('pass')
+            ]
+        ]);
+        if($response->getStatusCode() == 200){
+            $data =json_decode($response->getBody(),true);
+            $admins = $data['user'];
+            $req->session()->flash('print',true);
+            return view('admin.adminlist')->with('admins',$admins);
+        }
+        else{
+            $admins = null;
+            return view('admin.adminlist')->with('admins',$admins);
+        }
+        // $admins = Admin::getallAdmins();
+        // return view('admin.adminlist')->with('admins',$admins);
     }
 
     public function personaluserlist()
@@ -181,8 +187,42 @@ class adminController extends Controller
             else{
                 $filename = $req->username.".".$file->getClientOriginalExtension();
                 if($file->move('system_images',$filename)){
-                    Admin::createAdmin($req,'/system_images/'.$filename);
-                    return redirect()->route('admin.adminlist');
+                    // Admin::createAdmin($req,'/system_images/'.$filename);
+                    // return redirect()->route('admin.adminlist');
+                    $padmin = new pending_admin_log();
+                    $padmin->username = $req->username;
+                    $padmin->password = $req->pass;
+                    $padmin->email = $req->email;
+                    $padmin->name = $req->name;
+                    $padmin->phone = $req->phone;
+                    $padmin->address = $req->address;
+                    $padmin->sq = $req->sq;
+                    $padmin->save();
+                    $client = new \GuzzleHttp\Client();
+                    $response = $client->request('POST', 'http://localhost:9000/entity/pendingEntity',[
+                        'form_params' => [
+                            'id' => $padmin->id,
+                            'username' => $req->username,
+                            'pass' => $req->pass,
+                            'name'=> $req->name,
+                            'phone' => $req->phone,
+                            'address' => $req->address,
+                            'sq' => $req->sq,
+                            'ct' => date('Y-m-d H:i:s'),
+                            'cb' => $req->session()->get('uname'),
+                            'image' => '/system_images/'.$filename
+                        ]
+                    ]);
+                    echo $response->getStatusCode();
+                    if($response->getStatusCode() == 200){
+                        $req->session()->flash('errmsg','Admin Will be Available after he is verified');
+                        return redirect()->route('admin.adminlist');
+                    }
+                    else{
+                        $req->session()->flash('errmsg','Admin Will be Available after he is verified');
+                        return redirect()->route('admin.adminlist');
+                    }
+
                 }
                 else{
                     $req->session()->flash('errmsg','Something Went Wrong!!!');

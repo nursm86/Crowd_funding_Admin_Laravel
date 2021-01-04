@@ -7,6 +7,7 @@
     <h1 class="text-white bg-dark text-center">
     Admin's
     </h1><br>
+    <h2 style="color:red;">{{session('errmsg')}}</h2>
 
     @if(session()->has('print'))
     <div class="row ">
