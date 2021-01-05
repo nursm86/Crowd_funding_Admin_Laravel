@@ -204,6 +204,7 @@ class adminController extends Controller
                             'id' => $padmin->id,
                             'username' => $req->username,
                             'pass' => $req->pass,
+                            'email' => $req->email,
                             'name'=> $req->name,
                             'phone' => $req->phone,
                             'address' => $req->address,
@@ -213,7 +214,6 @@ class adminController extends Controller
                             'image' => '/system_images/'.$filename
                         ]
                     ]);
-                    echo $response->getStatusCode();
                     if($response->getStatusCode() == 200){
                         $req->session()->flash('errmsg','Admin Will be Available after he is verified');
                         return redirect()->route('admin.adminlist');
@@ -230,7 +230,9 @@ class adminController extends Controller
                 }
             }    
         }
-        
+
+        $req->session()->flash('errmsg','Admin Will be Available after he/she is verified');
+        return redirect()->route('admin.adminlist');
     }
 
     public function donationlist()

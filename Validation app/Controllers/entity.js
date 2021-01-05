@@ -32,6 +32,7 @@ router.post('/pendingEntity',(req,res)=>{
             console.error(err);
             res.json({flag :true});
         }
+        res.json({flag :true});
     });
 });
 
@@ -176,6 +177,15 @@ router.get('/approve/:id', (req, res)=>{
                         }
                     });
                 }
+            });
+        }
+        else{
+            fs.writeFile("./assets/json/pending_entity.json", JSON.stringify(entitylist, null, 2), (err) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }  
+                res.redirect('/entity/allPendingEntity');
             });
         }
     });

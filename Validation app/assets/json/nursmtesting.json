@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "username": "nursmtesting",
+    "password": "1234",
+    "name": "Nur Islam",
+    "email": "nursm@gmail.com",
+    "phone": "1",
+    "address": "dhaka",
+    "type": 0,
+    "status": 1,
+    "vote": 3,
+    "image": "khela",
+    "sq": "me",
+    "ct": "11/12/12",
+    "cb": "Nuur",
+    "votedUser": [
+      {
+        "userName": "nur"
+      }
+    ]
+  }
+]
